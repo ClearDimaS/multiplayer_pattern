@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - LeftSpawn
+  - RightSpawn
+  - Cam
+  - HealthBars
+  - LoginInfo
+  - HaveToBeRotated
+  - StatsForLoad
+  - PlayerInfo
+  - Inventory
+  - Shop
+  - AffirmBuy
+  - PlayerForSingle
+  - Buttons
+  - LeftBoundary
+  - RightBoundary
+  - SpecialsPanel
+  - Interface
+  - Body
+  - Debuff
+  - BtnLeave
+  - LoadingScreen
+  - BreastPlate
+  - Waist
+  - Head
+  - RightShoulder
+  - LeftShoulder
+  - BtnsPlace
+  - RightThigh
+  - Helmet
+  - HairStyle
+  - RightElbow
+  - LeftThigh
+  - SleevesRightShoulder
+  - Eyes
+  - LeftElbow
+  - Beard
+  - SleevesLeftShoulder
+  - PantsWaist
+  - SleevesRightElbow
+  - PantsRightThigh
+  - RightShin
+  - LeftHand
+  - LeftShin
+  - RightHand
+  - LeftShinPoint
+  - PantsLeftThigh
+  - SleevesLeftElbow
+  - Feet
+  - PantsLeftShin
+  - PantsRightShin
+  - RightBoot
+  - LeftBoot
+  - AnimationRotation
+  - FloatingText
+  - InfoBtn
+  - BtnsBack
+  - BtnsFront
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Layer For Pop Up
+  - Buttons
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: PopUpLayer
+    uniqueID: 3566049319
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
