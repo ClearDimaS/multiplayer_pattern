@@ -329,7 +329,20 @@ public class SingleSyncPlayers : MonoBehaviour
         }
         if (DataController.GetValue<string>("Equipped" + "RightHand" + "Mine") != "")
         {
-            LeftRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Mine"));
+            if (DataController.GetValue<string>("Equipped" + "RightHand" + "Mine").Contains("Daggers"))
+            {
+                LeftLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Mine") + "Left");
+
+                LeftRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Mine") + "Right");
+
+                LeftRightHand.GetComponent<SpriteRenderer>().color = Color.white;
+
+                LeftLeftHand.GetComponent<SpriteRenderer>().color = Color.white;
+            }
+            else
+            {
+                LeftRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Mine"));
+            }
         }
         else
         {
@@ -404,7 +417,20 @@ public class SingleSyncPlayers : MonoBehaviour
         }
         if (DataController.GetValue<string>("Equipped" + "RightHand" + "Other") != "")
         {
-            RightRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Other"));
+            if (DataController.GetValue<string>("Equipped" + "RightHand" + "Other").Contains("Daggers"))
+            {
+                RightLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Other") + "Left");
+
+                RightRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Other") + "Right");
+
+                RightRightHand.GetComponent<SpriteRenderer>().color = Color.white;
+
+                RightLeftHand.GetComponent<SpriteRenderer>().color = Color.white;
+            }
+            else
+            {
+                RightRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Other"));
+            }
         }
         else
         {

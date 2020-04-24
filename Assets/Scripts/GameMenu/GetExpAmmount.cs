@@ -18,9 +18,8 @@ public class GetExpAmmount : MonoBehaviour
         }
         if ((DataController.GetValue<int>("Exp") / 100) > DataController.GetValue<int>("Lvl"))
         {
+            DataController.SaveValue("SkillPoints", 4 * ((int)(DataController.GetValue<int>("Exp") / 100) - DataController.GetValue<int>("Lvl")) + DataController.GetValue<int>("SkillPoints"));
             DataController.SaveValue("Lvl", DataController.GetValue<int>("Exp") / 100);
-            DataController.SaveValue("SkillPoints", 4 + DataController.GetValue<int>("SkillPoints"));
-            DataController.SaveValue("Bread", 20 + DataController.GetValue<int>("Bread"));
         }
     }
 }

@@ -24,6 +24,8 @@ public class EnemyChooser : MonoBehaviour
         if (loadModeNumber == 1)
         {
             BossOrNotLoadImage.sprite = Resources.Load<Sprite>("RandomFightBtn");
+
+            BossChoosePanel.SetActive(false);
         }
         else 
         {
@@ -31,19 +33,49 @@ public class EnemyChooser : MonoBehaviour
         }
     }
 
+
     SingleEnemyHandler loadEnemy = new SingleEnemyHandler();
+
+    public GameObject BossChoosePanel;
+
 
     public void SetBossText() 
     {
+        DataController.SaveValue("CurrentBossNumberTemp", DataController.GetValue<int>("CurrentBossNumber"));
+
         foreach (Text txt in BossesInfoTextList) 
         {
             txt.text = "Next Legend\nlevel is:\n " + loadEnemy.BossesLvlList[DataController.GetValue<int>("CurrentBossNumber")] +
-                "\n\n" + DataController.GetValue<int>("CurrentBossNumber") + " / " + 10 + " Legends complete";
+                "\n\n" + DataController.GetValue<int>("CurrentBossNumber") + " / " + 7 + " Legends complete";
+        }
+
+        ShowEnemyChooserPanel();
+    }
+
+
+    void ShowEnemyChooserPanel() 
+    {
+        if (DataController.GetValue<int>("CurrentBossNumber") == 0)
+        {
+            Debug.Log("Im here");
+
+            BossChoosePanel.SetActive(true);
+        }
+        else
+        {
+            BossChoosePanel.SetActive(false);
         }
     }
 
+    public Text EnemyNameText;
+
+    public Text LvlText;
+
+
     public void UpdEnemyInfo() 
     {
+        loadEnemy.LoadAnEnemy();
+
         List<string> LocalNamesOther = new List<string> { "AttackOther", "AgilityOther", "PowerOther", "StrengthOther", "EnduranceOther", "SpeedOther", "SleepOther", "RegenOther" };
 
         int index = 0;
@@ -54,11 +86,15 @@ public class EnemyChooser : MonoBehaviour
             index++;
         }
 
+        EnemyNameText.text = DataController.GetValue<string>("enemyName");
+
+        LvlText.text = "Level: " + DataController.GetValue<int>("LvlOther").ToString();
+
         Image[] imgList = EquipmentParent.GetComponentsInChildren<Image>();
 
-        List<string> ForEquipmentImgsLoad = new List<string> { "Head", "Chest", "Arms", "Legs", "RightHand", "Feet", "LeftHand" };
+        List<string> ForEquipmentImgsLoad = new List<string> { "Head", "Chest", "Arms", "Legs", "LeftHand", "Feet", "RightHand"  };
 
-        Debug.Log(DataController.GetValue<int>("BodyColor" + "Other") + "   " + imgList[0]);
+        //Debug.Log(DataController.GetValue<int>("BodyColor" + "Other") + "   " + imgList[0]);
         imgList[0].color = ColorsScript.GetColorForScript(DataController.GetValue<int>("BodyColor" + "Other"));
 
         imgList[1].sprite = Resources.Load<Sprite>("HairStyles" + HairStylesScript.HairList[DataController.GetValue<int>("HairStyle" + "Other")]);
@@ -86,6 +122,15 @@ public class EnemyChooser : MonoBehaviour
         }
     }
     // Start is called before the first frame update
+
+    public void ChooseBoss(int i) 
+    {
+        DataController.SaveValue("CurrentBossNumberTemp", i);
+
+        UpdEnemyInfo();
+    }
+
+
     void Start()
     {
         

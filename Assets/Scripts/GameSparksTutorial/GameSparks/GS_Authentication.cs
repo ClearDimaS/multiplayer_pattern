@@ -167,6 +167,10 @@ namespace GameSparksTutorials
                                 {
                                     DataController.SaveValue(Name + TypeItem + "ammount", 1);
                                 }
+                                else 
+                                {
+                                    DataController.SaveValue(Name + TypeItem + "ammount", 0);
+                                }
                             }
                         }
                     }

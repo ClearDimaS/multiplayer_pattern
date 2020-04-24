@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppID: b6d56b40-dc92-4ba2-a6f3-f44168598b6c
   VoiceAppID: 
-  ChatAppID: 
+  ChatAppID: b6d56b40-dc92-4ba2-a6f3-f44168598b6c
   HostType: 1
-  PreferredRegion: 11
+  PreferredRegion: 0
   EnabledRegions: -1
   Protocol: 1
   ServerAddress: 
@@ -47,8 +47,6 @@ MonoBehaviour:
   - MoveCloserRightMedium
   - MoveFarerLeft
   - MoveFarerRight
-  - MoveSlowLeftMagic
-  - MoveSlowRightMagic
   - PickupItemInit
   - PunPickup
   - PunPickupSimple
@@ -57,18 +55,6 @@ MonoBehaviour:
   - RequestForPickupTimes
   - SleepLeft
   - SleepRight
-  - StaminaLossLeft
-  - StaminaLossLeftHeavy
-  - StaminaLossLeftLight
-  - StaminaLossLeftMagic
-  - StaminaLossLeftMedium
-  - StaminaLossRight
-  - StaminaLossRightHeavy
-  - StaminaLossRightLight
-  - StaminaLossRightMagic
-  - StaminaLossRightMedium
-  - SwapTurn
-  - MoveCloserNonRight
   - SwapTurnLeft
   - SwapTurnRight
   DisableAutoOpenWizard: 1

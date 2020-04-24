@@ -54,7 +54,12 @@ public class ShowPlayerStats : MonoBehaviour
         StatsBars.SetActive(!StatsBars.activeSelf);
     }
 
-
+    public void GetSkillPoints() 
+    {
+        ResetSkillPoints();
+        DataController.SaveValue("SkillPoints", 240);
+        DataController.SaveValue("Bread", 2400);
+    }
     public void MoveOut()
     {
         CharacterInfo.transform.position = new Vector3(-1000, -1000, 0);

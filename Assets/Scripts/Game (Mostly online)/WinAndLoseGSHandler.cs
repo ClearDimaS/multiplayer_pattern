@@ -13,7 +13,7 @@ public class WinAndLoseHandler : MonoBehaviour
     public static int loseExp = 11;
 
     public static int loseBread = 5;
-
+    
 
     public static int multDifference = 4;
     public static void WinOnline()
@@ -45,7 +45,7 @@ public class WinAndLoseHandler : MonoBehaviour
 
         Debug.Log("You have just won Online and recieved some exp and bread ");
 
-        DataController.SaveValue("GSNotSynced" + DataController.GetValue<string>("username"), 1) ;
+        PostGameActions(true);
     }
 
 
@@ -58,6 +58,10 @@ public class WinAndLoseHandler : MonoBehaviour
 
         if (DataController.GetValue<int>("LoadMode") == 2) 
         {
+            winExp = 200;
+
+            winBread = 100;
+
             DataController.SaveValue("CurrentBossNumber", 1 + DataController.GetValue<int>("CurrentBossNumber"));
         }
 
@@ -69,7 +73,7 @@ public class WinAndLoseHandler : MonoBehaviour
 
         Debug.Log("You have just won Single and recieved some exp and bread ");
 
-        DataController.SaveValue("GSNotSynced" + DataController.GetValue<string>("username"), 1);
+        PostGameActions(true);
     }
 
 
@@ -102,7 +106,7 @@ public class WinAndLoseHandler : MonoBehaviour
 
         Debug.Log("You have just lost Online and recieved some exp and bread ");
 
-        DataController.SaveValue("GSNotSynced" + DataController.GetValue<string>("username"), 1);
+        PostGameActions(false);
     }
 
 
@@ -118,6 +122,18 @@ public class WinAndLoseHandler : MonoBehaviour
 
         Debug.Log("You have just lost Single and recieved some exp and bread ");
 
-        DataController.SaveValue("GSNotSynced" + DataController.GetValue<string>("username"), 1);
+        PostGameActions(false);
     }
+
+    public static void PostGameActions(bool ifWin) 
+    {
+        DataController.SaveValue("GSNotSynced" + DataController.GetValue<string>("username"), 1);
+
+        if (ifWin)
+        {
+            DataController.SaveValue("WinsForChest", DataController.GetValue<int>("WinsForChest") + 1);
+        }
+    }
+
+
 }

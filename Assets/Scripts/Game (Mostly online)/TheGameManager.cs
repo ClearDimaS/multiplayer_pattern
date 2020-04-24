@@ -189,7 +189,7 @@ public class TheGameManager : MonoBehaviour
             {
                 TimerText("");
             }
-            else 
+            else
             {
                 Timer(Me, Enemy);
             }
@@ -200,7 +200,7 @@ public class TheGameManager : MonoBehaviour
             {
                 tempHealthMe = interFace.RefreshAnimate(true, tempHealthMe, Me.maxHealth);
             }
-            else if(Me.health > tempHealthMe)
+            else if (Me.health > tempHealthMe)
             {
                 tempHealthMe = 1 + (int)interFace.RefreshAnimate(true, Me.health, Me.maxHealth);
             }
@@ -208,7 +208,7 @@ public class TheGameManager : MonoBehaviour
             {
                 tempHealthEnemy = interFace.RefreshAnimate(false, tempHealthEnemy, Enemy.maxHealth);
             }
-            else if (Enemy.health > tempHealthEnemy) 
+            else if (Enemy.health > tempHealthEnemy)
             {
                 tempHealthEnemy = 1 + (int)interFace.RefreshAnimate(false, Enemy.health, Enemy.maxHealth);
             }
@@ -522,8 +522,10 @@ public class TheGameManager : MonoBehaviour
 
             if (PhotonNetwork.time - StartTime > 110) 
             {
+                TimeLeft.color = Color.clear;
+                TimeLeft1.color = Color.clear;
                 playerTimeBarText1.color = Color.red;
-                player1.animation.instantiateText("", new Vector3(0, 0, 0), "Instant Death! \n" + HealthLoss, player2.playerObj.transform.position, player2.iAmLeft, true, false, false, true, false);
+                player1.animation.instantiateText("", new Vector3(0, 0, 0), "Instant Death! \n" + HealthLoss, player1.playerObj.transform.position, player1.iAmLeft, true, false, false, true, false);
                 player1.health -= HealthLoss;
                 HealthLoss++;
             }
@@ -629,15 +631,21 @@ public class TheGameManager : MonoBehaviour
 
     public Text playerTimeBarText1;
 
+    public Text TimeLeft;
+
+    public Text TimeLeft1;
+
 
     void TimerText(string text) 
     {
         playerTimeBarText.text = text;
         playerTimeBarText1.text = text;
+
+        TimeLeft.text = ((int)(120 - (PhotonNetwork.time - StartTime))).ToString();
+        TimeLeft1.text = ((int)(120 - (PhotonNetwork.time - StartTime))).ToString();
     }
 
-
-    void CheckGameOver() 
+    public void CheckGameOver() 
     {
         if (Me.health <= 0)
         {
@@ -714,6 +722,33 @@ public class TheGameManager : MonoBehaviour
         else 
         {
             Invoke("UpdPlayerStateTemp", 1.0f);
+        }
+
+        if (player1.iAmLeft)
+        {
+            if (player1.myTurn)
+            {
+                playerTimeBarText.alignment = TextAnchor.UpperLeft;
+                playerTimeBarText1.alignment = TextAnchor.UpperLeft;
+            }
+            else
+            {
+                playerTimeBarText.alignment = TextAnchor.UpperRight;
+                playerTimeBarText1.alignment = TextAnchor.UpperRight;
+            }
+        }
+        else
+        {
+            if (player2.myTurn)
+            {
+                playerTimeBarText.alignment = TextAnchor.UpperLeft;
+                playerTimeBarText1.alignment = TextAnchor.UpperLeft;
+            }
+            else
+            {
+                playerTimeBarText.alignment = TextAnchor.UpperRight;
+                playerTimeBarText1.alignment = TextAnchor.UpperRight;
+            }
         }
     }
 
@@ -820,7 +855,7 @@ public class TheGameManager : MonoBehaviour
     GameProcess LoserTemp;
 
     GameProcess WinnerTemp;
-    void LoseGame()
+    public void LoseGame()
     {
         WinAndLoseHandler.LoseOnline();
         

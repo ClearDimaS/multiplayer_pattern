@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DataController = GameSparksTutorials.DataController;
@@ -47,7 +48,7 @@ public class GetFightResults : MonoBehaviour
 
             if (text.name == "RatingChange")
             {
-                text.text = "Raiting: " + SymbolPlusOrMinus + " " + DataController.GetValue<int>("RatingChange");
+                text.text = "Raiting: " + SymbolPlusOrMinus + " " + Math.Abs(DataController.GetValue<int>("RatingChange"));
             }
         }
     }

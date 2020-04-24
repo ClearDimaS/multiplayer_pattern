@@ -22,6 +22,8 @@ public class ShopSlot : MonoBehaviour
     int ModifierTemp;
     public static List<string> name = new List<string>();
 
+    GameObject[] shopParents;
+
     private void Update()
     {
         if (item != null)
@@ -39,27 +41,40 @@ public class ShopSlot : MonoBehaviour
     }
     public void DisplayItemInfo() 
     {
-        DisplayText = "";
-        DisplayText += item.name + ": " + DataController.GetValue<string>(item.name + "equipSlot") + "\n";
-        item.ammount = DataController.GetValue<int>(item.name + "ammount");
-        ItemInfo.SetActive(true);
-        foreach (string ModifierName in EquipmentModifiersList)
-        { 
-            ModifierTemp = DataController.GetValue<int>(item.name + ModifierName);
-            if (ModifierTemp > 0)
+        shopParents = GameObject.FindGameObjectsWithTag("ShopParent");
+        foreach (GameObject obj in shopParents)
+        {
+            foreach (ShopSlot shpSlt in obj.GetComponentsInChildren<ShopSlot>())
             {
-                DisplayText += ModifierName.Substring(8) + " : + " + ModifierTemp + " %" + "\n";
+                shpSlt.StopDisplayItemInfo();
             }
         }
-        TextItemInfo.text = DisplayText;
-        if (item.ammount > 0)
+
+        if (item != null) 
         {
-            BoughtOrNot.color = Color.white;
+            DisplayText = "";
+            DisplayText += item.name + ": " + DataController.GetValue<string>(item.name + "equipSlot") + "\n";
+            item.ammount = DataController.GetValue<int>(item.name + "ammount");
+            ItemInfo.SetActive(true);
+            foreach (string ModifierName in EquipmentModifiersList)
+            {
+                ModifierTemp = DataController.GetValue<int>(item.name + ModifierName);
+                if (ModifierTemp > 0)
+                {
+                    DisplayText += ModifierName.Substring(8) + " : + " + ModifierTemp + " %" + "\n";
+                }
+            }
+            TextItemInfo.text = DisplayText;
+            if (item.ammount > 0)
+            {
+                BoughtOrNot.color = Color.white;
+            }
+            else
+            {
+                BoughtOrNot.color = Color.clear;
+            }
         }
-        else
-        {
-            BoughtOrNot.color = Color.clear;
-        }
+       
     }
     public void StopDisplayItemInfo()
     {
@@ -97,6 +112,8 @@ public class ShopSlot : MonoBehaviour
 
     public void BuyItem()
     {
+        DataController.SaveValue(item.name + "ammount", 0);
+        ItemInfo.SetActive(false);
         AffirmWindow.SetActive(true);
         WindowText.text = "Do u want to buy " + item.name + " ?";        
     }

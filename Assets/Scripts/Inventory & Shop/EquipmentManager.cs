@@ -51,6 +51,7 @@ public class EquipmentManager : MonoBehaviour
 
     public void Equip(Equipment newItem)
     {
+        Debug.Log(currentEquipment[7]);
         ShowPlayerStats.WasChanged = true;
         //Debug.Log("Trying to equip" + "" + newItem.name);
 
@@ -65,7 +66,6 @@ public class EquipmentManager : MonoBehaviour
         DataController.SaveValue("TotalModifierBlockChanceMine", DataController.GetValue<int>("TotalModifierBlockChanceMine") + newItem.ModifierBlockChance);
         DataController.SaveValue("TotalModifierMagicMine", DataController.GetValue<int>("TotalModifierMagicMine") + newItem.ModifierMagic);
         DataController.SaveValue(newItem.name + "Equipped", 2);
-        DataController.SaveValue( "Equipped" + "Head", newItem.name);
         Equipment oldItem = null;
 
         DataController.SaveValue("Equipped" + ForEquipmentImgsLoad[(int)newItem.equipSlot] + "Mine", newItem.name);
@@ -96,12 +96,17 @@ public class EquipmentManager : MonoBehaviour
         }
         else 
         {
-            if (currentEquipment[7] != null && (slotIndex == 4 || slotIndex == 5))
+            if ((slotIndex == 4 || slotIndex == 5))
             {
-                currentEquipment[4] = null;
-                currentEquipment[5] = null;
-                Unequip(7);
+                if (currentEquipment[5] != null) 
+                {
+                    if ((int)currentEquipment[5].equipSlot == 7)
+                    {
+                        Unequip(5);
+                    }
+                }
             }
+
             if (currentEquipment[slotIndex] != null)
             {
                 Unequip(slotIndex);
@@ -111,16 +116,9 @@ public class EquipmentManager : MonoBehaviour
                 onEquipmentChanged.Invoke(newItem, oldItem);
             }
             currentEquipment[slotIndex] = newItem;
-            if (newItem.name.Contains("Boots"))
-            {
-                ListOfIcons[slotIndex].image.sprite = newItem.icon;
-                ListOfIcons[slotIndex].image.color = Color.white;
-            }
-            else
-            {
-                ListOfIcons[slotIndex].image.sprite = newItem.icon;
-                ListOfIcons[slotIndex].image.color = Color.white;
-            }
+
+            ListOfIcons[slotIndex].image.sprite = newItem.icon;
+            ListOfIcons[slotIndex].image.color = Color.white;
 
             ListOfImages[slotIndex].sprite = Resources.Load<Sprite>(newItem.name);
             ListOfImages[slotIndex].color = Color.white;
@@ -128,9 +126,41 @@ public class EquipmentManager : MonoBehaviour
     }
     public void EquipInShop(Equipment newItem)
     {
+        int slotIndexShop = (int)newItem.equipSlot;
+
+
+        if (currentEquipmentInShop[slotIndexShop] != null) 
+        {
+            if (slotIndexShop != 7)
+            {
+                if (currentEquipmentInShop[slotIndexShop].name == newItem.name)
+                {
+                    ListOfImagesShop[slotIndexShop].color = Color.clear;
+                    currentEquipmentInShop[slotIndexShop] = null;
+
+                    Debug.Log("SettingCOlorTo transperent");
+
+                    return;
+                }
+            }
+            else 
+            {
+                if (currentEquipmentInShop[5].name == newItem.name)
+                {
+                    ListOfImagesShop[5].color = Color.clear;
+
+                    currentEquipmentInShop[5] = null;
+
+                    Debug.Log("SettingCOlorTo transperent");
+
+                    return;
+                }
+            }
+        }
+
+
         ItemsPreview.SetActive(true);
         Debug.Log(newItem.name + newItem.equipSlot);
-        int slotIndexShop = (int)newItem.equipSlot;
         Debug.Log(slotIndexShop);
         if (slotIndexShop != 7)
         {
@@ -147,7 +177,7 @@ public class EquipmentManager : MonoBehaviour
             currentEquipmentInShop[slotIndexShop] = null;
             currentEquipmentInShop[slotIndexShop] = newItem;
         }
-        else 
+        else
         {
             currentEquipmentInShop[4] = null;
             ListOfImagesShop[4].color = Color.clear;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using GameSparksTutorials;
 
 public class SingleInteraction : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class SingleInteraction : MonoBehaviour
 
     #endregion
 
+    public GameObject SuggestionParent;
+
     public List<Image> Bars;
 
     static GameProcess player1;  // User of the device
@@ -36,7 +39,9 @@ public class SingleInteraction : MonoBehaviour
     }
 
     Mechanics Mechs = new Mechanics();
+
     Mechanics.ConvertFromStats Convert = new Mechanics.ConvertFromStats();
+
     Mechanics.ConvertFromStats.MoveType moveType;
 
     PlayerInterface.Points Points = new PlayerInterface.Points();
@@ -579,7 +584,19 @@ public class SingleInteraction : MonoBehaviour
 
     void BotMoveTemp() 
     {
-        botHelper.MakeAMoveEasy(player1, player2);
+        if (DataController.GetValue<int>("LoadMode") == 2)
+        {
+            botHelper.MakeAMoveHard(player1, player2);
+        }
+        else
+        if (player1.Lvl > 2)
+        {
+            botHelper.MakeAMoveMedium(player1, player2);
+        }
+        else 
+        {
+            botHelper.MakeAMoveEasy(player1, player2);
+        }
     }
 
     #endregion
@@ -593,7 +610,7 @@ public class SingleInteraction : MonoBehaviour
     {
         if (player1.cursed > 0 || player1.onFire > 0)
         {
-            player1.playerDebuffs.GetComponentInChildren<Text>().text = ReturnDebuffText(player1, player2);
+            player1.playerDebuffs.GetComponentsInChildren<Text>()[1].text = ReturnDebuffText(player1, player2);
         }
         else 
         {
@@ -626,16 +643,68 @@ public class SingleInteraction : MonoBehaviour
             blockChancetemp = (int)(blockChancetemp * 100.0f);
         }
 
-
-        if (player1.magicEquipped == "Fire")
+        Debug.Log(player1.curseDebuff + player1.regBonus);
+        if (player2.magicEquipped == "Fire")
         {
-            return "Block chance: " + blockChancetemp + " (-" + (int)(player1.fireDebuff * 100) + ") %\n" +
-                "Damage rdct: " + (int)(Convert.DmgRedFunc(player1) * 100) + " (-" + (int)(player1.fireDebuff * 100) + ") %";
+            return "Block chance: " + (blockChancetemp - (int)(player1.fireDebuff * 100)) + " (-" + (int)(player1.fireDebuff * 100) + ") %\n" +
+                "Damage rdct: " + (int)((Convert.DmgRedFunc(player1) - player1.fireDebuff) * 100) + " (-" + (int)(player1.fireDebuff * 100) + ") %";
         }
         else
         {
-            return "Regeneration effects \nmultiplyer: " + (int)(player1.regBonus * 100) + " (-" + (int)(player1.curseDebuff * 100) + ") %";
+            return "Regeneration effects \nmultiplyer: " + (int)((player1.regBonus - player1.curseDebuff) * 100) + " (-" + (int)(player1.curseDebuff * 100) + ") %";
         }
     }
 
+
+    public void LoseGameConverter() 
+    {
+        SingleGameManager.instance.Pause(false);
+
+        SingleGameManager.instance.CheckGameOver();
+    }
+
+
+    bool addWatched;
+
+
+    public void WatchAdd() 
+    {
+        // Add check if addvert watched
+
+        addWatched = true;
+
+        RestoreSomeHp();
+    }
+
+
+    bool ContinuePaid;
+
+
+    public void PayPls()
+    {
+        if (DataController.GetValue<int>("Bread") >= 50) 
+        {
+            DataController.SaveValue("Bread", DataController.GetValue<int>("Bread") - 50);
+
+            ContinuePaid = true;
+
+            RestoreSomeHp();
+        }
+    }
+
+
+    public void RestoreSomeHp()
+    {
+        if (ContinuePaid || addWatched) 
+        {
+            player1.health = player1.maxHealth / 2;
+
+            SingleGameManager.instance.Pause(false);
+
+            SingleGameManager.instance.UpdPlayerState(player1, player2);
+
+            SuggestionParent.SetActive(false);
+        }
+
+    }
 }

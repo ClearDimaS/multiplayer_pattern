@@ -688,14 +688,14 @@ public class Interaction : Photon.PunBehaviour
         }
 
 
-        if (player1.magicEquipped == "Fire")
+        if (player2.magicEquipped == "Fire")
         {
-            return "Block chance: " + blockChancetemp + " (-" + (int)(player1.fireDebuff * 100) + ") %\n" +
-                "Damage rdct: " + (int)(Convert.DmgRedFunc(player1) * 100) + " (-" + (int)(player1.fireDebuff * 100) + ") %";
+            return "Block chance: " + (blockChancetemp - (int)(player1.fireDebuff * 100)) + " (-" + (int)(player1.fireDebuff * 100) + ") %\n" +
+                "Damage rdct: " + (int)((Convert.DmgRedFunc(player1) - player1.fireDebuff) * 100) + " (-" + (int)(player1.fireDebuff * 100) + ") %";
         }
         else
         {
-            return "Regeneration effects \nmultiplyer: " + (int)(player1.regBonus * 100) + " (-" + (int)(player1.curseDebuff * 100) + ") %";
+            return "Regeneration effects \nmultiplyer: " + (int)((player1.regBonus - player1.curseDebuff) * 100) + " (-" + (int)(player1.curseDebuff * 100) + ") %";
         }
     }
 

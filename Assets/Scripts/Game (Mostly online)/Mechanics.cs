@@ -70,7 +70,7 @@ public class Mechanics
 
         public float ifLowHpDmg = 1.0f;
 
-        public int baseHealthForSleep = 1;
+        public int baseHealthForSleep = 3;
         public int baseHealthForSwap = 1;
 
         public float regBonus = 0.0f;
@@ -99,7 +99,8 @@ public class Mechanics
 
         public int MagicDurationFunc(GameProcess player)
         {
-            return (int)((player.sleep - 1) / 10 * (1 + player.magicModif));
+            Debug.Log((int)((player.sleep + 11) / 10 * (1 + player.magicModif)) + "  " + player.magicModif);
+            return (int)((player.sleep) / 10 * (1 + player.magicModif));
         }
 
         public int MagicDebuffChance(GameProcess player)
@@ -165,7 +166,8 @@ public class Mechanics
 
             int tempText;
 
-            temp = (int)(((player.regen * 0.3f) + player.baseHealthForSleep) * (1 + player.regBonus - player.curseDebuff));
+            Debug.Log(player.regBonus +  "    "  +  player.curseDebuff + "sssssssssssssssssssssssssssssssssss");
+            temp = (int)(((player.regen * 0.3f) + player.baseHealthForSleep) * (1 + player.regBonus - 2 * player.curseDebuff));
 
             if (player.animation.Animator != null)
             {
@@ -409,7 +411,9 @@ public class Mechanics
                 }
                 else if (player1.magicEquipped == "Curse")
                 {
+                    
                     player2.cursed = Mechs.Convert.MagicDurationFunc(player1);
+                    Debug.Log("Sleep is:" + player1.sleep + " ; " + "Duration is: " + player2.cursed);
                     player2.curseDebuff = Mechs.Convert.MagicCurseDebuff(player1) / 100.0f;
                 }
                 else if (player1.magicEquipped == "Bolt")
@@ -461,7 +465,7 @@ public class Mechanics
         //Using double handed weapons
         float Power3 = 0.071f;
         float Power4 = 0.051f;
-        float Power5 = 0.121f;
+        float Power5 = 0.81f;
         #endregion
 
         #region Strength

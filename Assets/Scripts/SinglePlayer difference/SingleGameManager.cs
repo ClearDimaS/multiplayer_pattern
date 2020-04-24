@@ -202,32 +202,35 @@ public class SingleGameManager : MonoBehaviour
         }
         else
         {
-            if (MoveMent())
+            if (!pause)
             {
-                TimerText("");
-            }
-            else
-            {
-                Timer(Me, Enemy);
-            }
+                if (MoveMent())
+                {
+                    TimerText("");
+                }
+                else
+                {
+                    Timer(Me, Enemy);
+                }
 
-            // Animating HealthBars
+                // Animating HealthBars
 
-            if (Me.health < (int)tempHealthMe)
-            {
-                tempHealthMe = interFace.RefreshAnimate(true, tempHealthMe, Me.maxHealth);
-            }
-            else if (Me.health > tempHealthMe)
-            {
-                tempHealthMe = 1 + (int)interFace.RefreshAnimate(true, Me.health, Me.maxHealth);
-            }
-            if (Enemy.health < (int)tempHealthEnemy)
-            {
-                tempHealthEnemy = interFace.RefreshAnimate(false, tempHealthEnemy, Enemy.maxHealth);
-            }
-            else if (Enemy.health > tempHealthEnemy)
-            {
-                tempHealthEnemy = 1 + (int)interFace.RefreshAnimate(false, Enemy.health, Enemy.maxHealth);
+                if (Me.health < (int)tempHealthMe)
+                {
+                    tempHealthMe = interFace.RefreshAnimate(true, tempHealthMe, Me.maxHealth);
+                }
+                else if (Me.health > tempHealthMe)
+                {
+                    tempHealthMe = 1 + (int)interFace.RefreshAnimate(true, Me.health, Me.maxHealth);
+                }
+                if (Enemy.health < (int)tempHealthEnemy)
+                {
+                    tempHealthEnemy = interFace.RefreshAnimate(false, tempHealthEnemy, Enemy.maxHealth);
+                }
+                else if (Enemy.health > tempHealthEnemy)
+                {
+                    tempHealthEnemy = 1 + (int)interFace.RefreshAnimate(false, Enemy.health, Enemy.maxHealth);
+                }
             }
         }
     }
@@ -484,6 +487,7 @@ public class SingleGameManager : MonoBehaviour
                 UpdButtonsTexts();
             }
 
+            Debug.Log(player1.cursed + "   " + player1.onFire );
             if (player1.cursed > 0)
             {
                 player1.animation.setAnimatorBoolTrue("Magic" + player2.magicEquipped);
@@ -588,11 +592,25 @@ public class SingleGameManager : MonoBehaviour
     }
 
 
-    void CheckGameOver()
+    bool alreadyUsedContinue;
+
+
+    public void CheckGameOver()
     {
         if (Me.health <= 0)
         {
-            LoseGame();
+            // Suggest continue game for gold or ads
+
+            if (!alreadyUsedContinue)
+            {
+                Pause(true);
+
+                Me.playerObj.GetComponentInChildren<SingleInteraction>().SuggestionParent.SetActive(true);
+            }
+            else
+            {
+                LoseGame();
+            }
         }
         else
         if (Enemy.health <= 0)
@@ -703,8 +721,6 @@ public class SingleGameManager : MonoBehaviour
                 {
                     playerDist = Mathf.Abs(Me.playerObj.transform.position.x - Enemy.playerObj.transform.position.x);
                 }
-
-                Debug.Log(Me.lightChance);
 
                 if (playerDist <= Conv.LightDistFunc(Me))
                 {
@@ -857,5 +873,15 @@ public class SingleGameManager : MonoBehaviour
         LoserTemp.animation.setAnimatorBoolTrue("PlayerDeath" + LocalNumberForLoseAnimName.ToString());
 
         WinnerTemp.animation.setAnimatorBoolTrue("PlayerVictory" + LocalNumberForWinAnimName.ToString());
+    }
+
+
+    bool pause;
+
+    public void Pause(bool pauseOrNot)
+    {
+        pause = pauseOrNot;
+
+        alreadyUsedContinue = true;
     }
 }

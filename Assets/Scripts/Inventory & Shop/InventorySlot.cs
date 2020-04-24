@@ -19,21 +19,36 @@ public class InventorySlot : MonoBehaviour
 
     Item item;
 
+    GameObject InventoryParent;
+
+
+    private void Start()
+    {
+        InventoryParent = GameObject.FindGameObjectWithTag("InventoryParent");
+    }
     public void DisplayItemInfo()
     {
-        DisplayText = "";
-        DisplayText += item.name + ": " + DataController.GetValue<string>(item.name + "equipSlot") + "\n";
-
-        ItemInfo.SetActive(true);
-        foreach (string ModifierName in EquipmentModifiersList)
+        foreach (InventorySlot obj in InventoryParent.GetComponentsInChildren<InventorySlot>()) 
         {
-            ModifierTemp = DataController.GetValue<int>(item.name + ModifierName);
-            if (ModifierTemp > 0) 
-            {
-                DisplayText += ModifierName.Substring(8) + " : + " + ModifierTemp + " %" + "\n";
-            }
+            obj.StopDisplayItemInfo();
         }
-        TextItemInfo.text = DisplayText;
+
+        if (item != null) 
+        {
+            DisplayText = "";
+            DisplayText += item.name + ": " + DataController.GetValue<string>(item.name + "equipSlot") + "\n";
+
+            ItemInfo.SetActive(true);
+            foreach (string ModifierName in EquipmentModifiersList)
+            {
+                ModifierTemp = DataController.GetValue<int>(item.name + ModifierName);
+                if (ModifierTemp > 0)
+                {
+                    DisplayText += ModifierName.Substring(8) + " : + " + ModifierTemp + " %" + "\n";
+                }
+            }
+            TextItemInfo.text = DisplayText;
+        }
     }
     public void StopDisplayItemInfo()
     {
@@ -73,15 +88,10 @@ public class InventorySlot : MonoBehaviour
         NameTemp = item.name;
         ConfirmWindow.SetActive(false);
 
-        if (SellPrice > 0 && SellPrice != null)
-        {
-            DataController.SaveValue(item.name + "ammount", 0);
-            DataController.SaveValue("Bread", (DataController.GetValue<int>("Bread") + (int)SellPrice));
-        }
-        else 
-        {
-            Debug.Log("SellPrice is" + SellPrice);
-        }
+        DataController.SaveValue("GSNotSynced" + DataController.GetValue<string>("username"), 1);
+        DataController.SaveValue(item.name + "ammount", 0);
+        DataController.SaveValue("Bread", (DataController.GetValue<int>("Bread") + (int)SellPrice));
+
         Inventory.instance.Remove(item);
         GetBreadAmmount.Updated = false;
     }

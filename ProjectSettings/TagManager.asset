@@ -61,6 +61,8 @@ TagManager:
   - InfoBtn
   - BtnsBack
   - BtnsFront
+  - InventoryParent
+  - ShopParent
   layers:
   - Default
   - TransparentFX

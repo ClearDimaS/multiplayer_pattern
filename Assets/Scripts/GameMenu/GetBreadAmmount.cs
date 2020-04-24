@@ -18,7 +18,7 @@ public class GetBreadAmmount : MonoBehaviour
         if (!Updated)
         {
             Updated = true;
-            Invoke("UpdateBread", 1);
+            Invoke("UpdateBread", 1.0f);
         }
     }
 

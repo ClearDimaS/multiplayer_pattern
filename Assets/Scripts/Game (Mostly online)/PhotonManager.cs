@@ -25,9 +25,15 @@ public class PhotonManager : Photon.MonoBehaviour
     void OnJoinedLobby()
     {
         PhotonNetwork.JoinRandomRoom();
-        if (PhotonNetwork.room == null) 
+
+        Invoke("RoomCreateIfNotConnected", 3.0f);
+    }
+
+    void RoomCreateIfNotConnected() 
+    {
+        if (PhotonNetwork.room == null)
         {
-            PhotonNetwork.JoinOrCreateRoom("Room" + PhotonNetwork.time, new RoomOptions() { MaxPlayers = 2 }, TypedLobby.Default) ;
+            PhotonNetwork.JoinOrCreateRoom("Room" + PhotonNetwork.time, new RoomOptions() { MaxPlayers = 2 }, TypedLobby.Default);
         }
     }
 
