@@ -5,6 +5,20 @@ using UnityEngine.UI;
 using GameSparksTutorials;
 public class RewardChestScript : MonoBehaviour
 {
+    #region Singleton
+    public static RewardChestScript instance;
+
+    public void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of interaction interface found!");
+            return;
+        }
+        instance = this;
+    }
+
+    #endregion
     public Text[] WinsForChestTexts;
 
     public GameObject Chest;
@@ -23,8 +37,6 @@ public class RewardChestScript : MonoBehaviour
     {
         firstTime = true;
 
-        DataController.SaveValue("WinsForChest", 22);
-
         if (DataController.GetValue<int>("WinsForChest") >= 3) 
         {
             ChestInfoBtn.GetComponentInChildren<Animator>().Play("ChestInfoBtnEnough");
@@ -39,6 +51,8 @@ public class RewardChestScript : MonoBehaviour
 
     public void UpdTextOfWinQuantity() 
     {
+        PicOfReward.color = Color.clear;
+
         BtnInteractable = true;
 
         ChestPanel.SetActive(true);
@@ -91,12 +105,19 @@ public class RewardChestScript : MonoBehaviour
 
     Equipment rewardEquipment;
 
-    public void GetChestReward()
+    public GameObject MoreButton;
+
+    public void GetChestReward(bool ifAdd)
     {
         if (BtnInteractable) 
         {
             if (DataController.GetValue<int>("WinsForChest") >= 3)
             {
+                if (!ifAdd) 
+                {
+                    MoreButton.SetActive(true);
+                }
+
                 ChestInfoBtn.GetComponentInChildren<Animator>().Play("ChestInfoBtnNotEnough");
 
                 DataController.SaveValue("WinsForChest", DataController.GetValue<int>("WinsForChest") - 3);
@@ -104,15 +125,6 @@ public class RewardChestScript : MonoBehaviour
                 firstTime = false;
 
                 Chest.GetComponentInChildren<Animator>().Play("ChestOpen");
-
-                if (DataController.GetValue<int>("WinsForChest") >= 3)
-                {
-                    Invoke("UpdTextOfWinQuantity", 2.0f);
-                }
-                else
-                {
-                    UpdTextOfWinQuantity();
-                }
 
                 rewardEquipment = GetRandomEquipment();
 
@@ -130,6 +142,36 @@ public class RewardChestScript : MonoBehaviour
         }
 
         // Suggest to get the second chest for an add here
+        if (!ifAdd)
+        {
+            if (DataController.GetValue<int>("WinsForChest") >= 3)
+            {
+                Invoke("UpdTextOfWinQuantity", 2.0f);
+            }
+            else
+            {
+                UpdTextOfWinQuantity();
+            }
+        }
+        else 
+        {
+            Chest.GetComponentInChildren<Animator>().Play("ChestOpen");
+
+            rewardEquipment = GetRandomEquipment();
+
+            PicOfReward.sprite = item.icon;
+
+            Invoke("MoveShiningBack", 1.0f);
+
+            Invoke("SaveRewardPic", 1.8f);
+
+            Invoke("UpdTextOfWinQuantity", 2.0f);
+
+            Shining.GetComponentInChildren<SpriteRenderer>().sortingOrder = 4;
+
+            ItemPickup.PickUpToInv(rewardEquipment);
+        }
+
 
         OkButton.SetActive(true);
     }

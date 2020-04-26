@@ -208,8 +208,8 @@ public class SyncPlayers : Photon.PunBehaviour, IPunObservable
                     }
                     else
                     {
-                        LoadingScreenTexts[0].text = "Searching for players.... \n \n" + "Currently playing: " + PhotonNetwork.countOfPlayersInRooms.ToString();
-                        LoadingScreenTexts[1].text = "Searching for players.... \n \n" + "Currently playing: " + PhotonNetwork.countOfPlayersInRooms.ToString();
+                        LoadingScreenTexts[0].text = LocalisationSystem.GetLocalisedValue("searching") + ".... \n \n" + LocalisationSystem.GetLocalisedValue("playingnow") + ": " + PhotonNetwork.countOfPlayersInRooms.ToString();
+                        LoadingScreenTexts[1].text = LocalisationSystem.GetLocalisedValue("searching") + ".... \n \n" + LocalisationSystem.GetLocalisedValue("playingnow") + ": " + PhotonNetwork.countOfPlayersInRooms.ToString();
                     }
                 }
             }
@@ -533,8 +533,9 @@ public class SyncPlayers : Photon.PunBehaviour, IPunObservable
         PhotonManager.GameOver = true;
     }
 
-    void LoadSprites() 
+    void LoadSprites()
     {
+
         if (PhotonNetwork.isMasterClient)
         {
             GameObject LeftHead = GameObject.FindGameObjectsWithTag("Head")[0];
@@ -638,35 +639,36 @@ public class SyncPlayers : Photon.PunBehaviour, IPunObservable
                 LeftSleevesLeftElbow.GetComponent<SpriteRenderer>().color = Color.clear;
                 LeftSleevesRightElbow.GetComponent<SpriteRenderer>().color = Color.clear;
             }
-            if (DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine") != "")
-            {
-                LeftLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine"));
-            }
-            else
-            {
-                LeftLeftHand.GetComponent<SpriteRenderer>().color = Color.clear;
-            }
             if (DataController.GetValue<string>("Equipped" + "RightHand" + "Mine") != "")
             {
-                if (DataController.GetValue<string>("Equipped" + "RightHand" + "Mine").Contains("Daggers"))
-                {
-                    LeftLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Mine") + "Left");
-
-                    LeftRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Mine") + "Right");
-
-                    LeftRightHand.GetComponent<SpriteRenderer>().color = Color.white;
-
-                    LeftLeftHand.GetComponent<SpriteRenderer>().color = Color.white;
-                }
-                else 
-                {
-                    LeftRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Mine"));
-                }
+                LeftRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Mine"));
             }
             else
             {
                 LeftRightHand.GetComponent<SpriteRenderer>().color = Color.clear;
             }
+            if (DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine") != "")
+            {
+               if (DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine").Contains("Daggers"))
+                {
+                    LeftLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine") + "Right");
+
+                    LeftRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine") + "Left");
+
+                    LeftRightHand.GetComponent<SpriteRenderer>().color = Color.white;
+
+                    LeftLeftHand.GetComponent<SpriteRenderer>().color = Color.white;
+                }
+                else
+                {
+                    LeftLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine"));
+                }
+            }
+            else
+            {
+                LeftLeftHand.GetComponent<SpriteRenderer>().color = Color.clear;
+            }
+
             if (DataController.GetValue<string>("Equipped" + "Legs" + "Mine") != "")
             {
                 LeftPantsWaist.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "Legs" + "Mine") + "Waist");
@@ -726,21 +728,22 @@ public class SyncPlayers : Photon.PunBehaviour, IPunObservable
                 RightSleevesLeftElbow.GetComponent<SpriteRenderer>().color = Color.clear;
                 RightSleevesRightElbow.GetComponent<SpriteRenderer>().color = Color.clear;
             }
-            if (DataController.GetValue<string>("Equipped" + "LeftHand" + "Other") != "")
+            if (DataController.GetValue<string>("Equipped" + "RightHand" + "Other") != "")
             {
-                RightLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Other"));
+
+                RightRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Other"));
             }
             else
             {
-                RightLeftHand.GetComponent<SpriteRenderer>().color = Color.clear;
+                RightRightHand.GetComponent<SpriteRenderer>().color = Color.clear;
             }
-            if (DataController.GetValue<string>("Equipped" + "RightHand" + "Other") != "")
+            if (DataController.GetValue<string>("Equipped" + "LeftHand" + "Other") != "")
             {
-                if (DataController.GetValue<string>("Equipped" + "RightHand" + "Other").Contains("Daggers"))
+                if (DataController.GetValue<string>("Equipped" + "LeftHand" + "Other").Contains("Daggers"))
                 {
-                    RightLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Other") + "Left");
+                    RightLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Other") + "Right");
 
-                    RightRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Other") + "Right");
+                    RightRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Other") + "Left");
 
                     RightRightHand.GetComponent<SpriteRenderer>().color = Color.white;
 
@@ -748,13 +751,14 @@ public class SyncPlayers : Photon.PunBehaviour, IPunObservable
                 }
                 else
                 {
-                    RightRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Other"));
+                    RightLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Other"));
                 }
             }
             else
             {
-                RightRightHand.GetComponent<SpriteRenderer>().color = Color.clear;
+                RightLeftHand.GetComponent<SpriteRenderer>().color = Color.clear;
             }
+
             if (DataController.GetValue<string>("Equipped" + "Legs" + "Other") != "")
             {
                 RightPantsWaist.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "Legs" + "Other") + "Waist");
@@ -961,21 +965,22 @@ public class SyncPlayers : Photon.PunBehaviour, IPunObservable
                 LeftSleevesLeftElbow.GetComponent<SpriteRenderer>().color = Color.clear;
                 LeftSleevesRightElbow.GetComponent<SpriteRenderer>().color = Color.clear;
             }
-            if (DataController.GetValue<string>("Equipped" + "LeftHand" + "Other") != "")
+            if (DataController.GetValue<string>("Equipped" + "RightHand" + "Other") != "")
             {
-                LeftLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Other"));
+
+                LeftRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Other"));
             }
             else
             {
-                LeftLeftHand.GetComponent<SpriteRenderer>().color = Color.clear;
+                LeftRightHand.GetComponent<SpriteRenderer>().color = Color.clear;
             }
-            if (DataController.GetValue<string>("Equipped" + "RightHand" + "Other") != "")
+            if (DataController.GetValue<string>("Equipped" + "LeftHand" + "Other") != "")
             {
-                if (DataController.GetValue<string>("Equipped" + "RightHand" + "Other").Contains("Daggers"))
+                if (DataController.GetValue<string>("Equipped" + "LeftHand" + "Other").Contains("Daggers"))
                 {
-                    LeftLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Other") + "Left");
+                    LeftLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Other") + "Right");
 
-                    LeftRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Other") + "Right");
+                    LeftRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Other") + "Left");
 
                     LeftRightHand.GetComponent<SpriteRenderer>().color = Color.white;
 
@@ -983,13 +988,14 @@ public class SyncPlayers : Photon.PunBehaviour, IPunObservable
                 }
                 else
                 {
-                    LeftRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Other"));
+                    LeftLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Other"));
                 }
             }
             else
             {
-                LeftRightHand.GetComponent<SpriteRenderer>().color = Color.clear;
+                LeftLeftHand.GetComponent<SpriteRenderer>().color = Color.clear;
             }
+
             if (DataController.GetValue<string>("Equipped" + "Legs" + "Other") != "")
             {
                 LeftPantsWaist.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "Legs" + "Other") + "Waist");
@@ -1049,21 +1055,23 @@ public class SyncPlayers : Photon.PunBehaviour, IPunObservable
                 RightSleevesLeftElbow.GetComponent<SpriteRenderer>().color = Color.clear;
                 RightSleevesRightElbow.GetComponent<SpriteRenderer>().color = Color.clear;
             }
-            if (DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine") != "")
+            if (DataController.GetValue<string>("Equipped" + "RightHand" + "Mine") != "")
             {
-                RightLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine"));
+
+                RightRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Mine"));
             }
             else
             {
-                RightLeftHand.GetComponent<SpriteRenderer>().color = Color.clear;
+                RightRightHand.GetComponent<SpriteRenderer>().color = Color.clear;
             }
-            if (DataController.GetValue<string>("Equipped" + "RightHand" + "Mine") != "")
+            if (DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine") != "")
             {
-                if (DataController.GetValue<string>("Equipped" + "RightHand" + "Mine").Contains("Daggers"))
+                if (DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine").Contains("Daggers"))
                 {
-                    RightLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Mine") + "Left");
+                    Debug.Log("Daggers");
+                    RightLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine") + "Right");
 
-                    RightRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Mine") + "Right");
+                    RightRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine") + "Left");
 
                     RightRightHand.GetComponent<SpriteRenderer>().color = Color.white;
 
@@ -1071,13 +1079,14 @@ public class SyncPlayers : Photon.PunBehaviour, IPunObservable
                 }
                 else
                 {
-                    RightRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Mine"));
+                    RightLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine"));
                 }
             }
             else
             {
-                RightRightHand.GetComponent<SpriteRenderer>().color = Color.clear;
+                RightLeftHand.GetComponent<SpriteRenderer>().color = Color.clear;
             }
+
             if (DataController.GetValue<string>("Equipped" + "Legs" + "Mine") != "")
             {
                 RightPantsWaist.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "Legs" + "Mine") + "Waist");

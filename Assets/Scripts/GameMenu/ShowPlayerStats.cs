@@ -69,7 +69,7 @@ public class ShowPlayerStats : MonoBehaviour
     public void MoveIn(string InOrOut)
     {
 
-        Debug.Log(DataController.GetValue<int>("SkillPoints") + "   " + DataController.GetValue<int>("SpentPoints") + "   " + DataController.GetValue<int>("AllPts"));
+        //Debug.Log(DataController.GetValue<int>("SkillPoints") + "   " + DataController.GetValue<int>("SpentPoints") + "   " + DataController.GetValue<int>("AllPts"));
         //CharacterInfo = GameObject.FindGameObjectsWithTag("PlayerInfo")[0];
         if (InOrOut == "In")
         {
@@ -305,7 +305,7 @@ public class ShowPlayerStats : MonoBehaviour
                 CurStat = DataController.GetValue<int>(ServerNames[count] + "Mine");
                 CurIncrStat = DataController.GetValue<int>(ServerNames[count] + "Incr");
                 title = img.GetComponentInChildren<Text>();
-                title.text = ServerNames[count].Substring(5) + ": " + (CurStat + CurIncrStat);
+                title.text = LocalisationSystem.GetLocalisedValue(ServerNames[count].Substring(5).ToLower()) + ": " + (CurStat + CurIncrStat);
 
                 Price = (CurStat + CurIncrStat) / 8 + 1;
                 if (Price < 6)
@@ -368,20 +368,20 @@ public class ShowPlayerStats : MonoBehaviour
                     {
                         if (DataController.GetValue<string>("EquippedMagic") != "")
                         {
-                            text.text = "Spell: " + DataController.GetValue<string>("EquippedMagicMine") + "\n";
+                            text.text = "magic: " + DataController.GetValue<string>("EquippedMagicMine") + "\n";
                             if (DataController.GetValue<string>("EquippedMagicMine") != "Curse")
                             {
-                                text.text += "Damage : " + Conv.MagicDmgFunc(player) + " + " + (int)(Conv.MagicDmgFunc(player) / Helper.debuffDmgMultCurse) + " x" +
+                                text.text += LocalisationSystem.GetLocalisedValue("Damage") + " : " + Conv.MagicDmgFunc(player) + " + " + (int)(Conv.MagicDmgFunc(player) / Helper.debuffDmgMultCurse) + " x" +
                                     Conv.MagicDurationFunc(player) + "\n";
                             }
                             else
                             {
-                                text.text += "Damage : " + Conv.MagicDmgFunc(player) + " + " + (int)(Conv.MagicDmgFunc(player) / Helper.debuffDmgMultFire) + " x" +
+                                text.text += LocalisationSystem.GetLocalisedValue("Damage") + " : " + Conv.MagicDmgFunc(player) + " + " + (int)(Conv.MagicDmgFunc(player) / Helper.debuffDmgMultFire) + " x" +
                                     Conv.MagicDurationFunc(player) + "\n";
                             }
 
-                            text.text += "Debuff Chance : " + (int)(Conv.MagicDebuffChance(player)) + " %" + "\n";
-                            text.text += "Debuff time : " + Conv.MagicDurationFunc(player) + " Turns";
+                            text.text += LocalisationSystem.GetLocalisedValue("magic_debuff_chance") + " : " + (int)(Conv.MagicDebuffChance(player)) + " %" + "\n";  // magic_debuff_chance
+                            text.text += LocalisationSystem.GetLocalisedValue("magic_debuff_duration") + " : " + Conv.MagicDurationFunc(player) + " Turns"; //magic_debuff_duration
                         }
                         else
                         {
@@ -391,7 +391,7 @@ public class ShowPlayerStats : MonoBehaviour
                     }
                     else
                     {
-                        text.text = "Magic Damage : " + 0;
+                        text.text = LocalisationSystem.GetLocalisedValue("magic_dmg") + "  : " + 0; // magic_dmg
                     }
                 }
                 if (text.name.StartsWith("Cnt"))

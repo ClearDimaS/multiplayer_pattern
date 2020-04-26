@@ -198,34 +198,34 @@ public class PlayerInterface
     #region LoadInfoScreen
     void TextsLoadFunc(GameProcess player, GameProcess player2, Text[] TextsArray) // 3
     {
-        TextsArray[0].text = "Base damage: " + (int)(Convert.DmgFunc(player)) + " ; Light: " + Math.Round(player.lightMult, 2) + " ; Medium: " + Math.Round(player.mediumMult, 2) + " ; Heavy: " + Math.Round(player.heavyMult, 2) + " ; Berserk multiplyer: " + Math.Round(player.ifLowHpDmg, 2); // DamageLightMultMine, DamageMediumMultMine , DamageHeavyMultMine, IfLowHpDmgMine
+        TextsArray[0].text = LocalisationSystem.GetLocalisedValue("base_damage") + ": " + (int)(Convert.DmgFunc(player)) + " ; " + LocalisationSystem.GetLocalisedValue("light") + ": " + Math.Round(player.lightMult, 2) + " ; " + LocalisationSystem.GetLocalisedValue("medium") + ": " + Math.Round(player.mediumMult, 2) + " ; " + LocalisationSystem.GetLocalisedValue("heavy") + ": " + Math.Round(player.heavyMult, 2) + " ; " + LocalisationSystem.GetLocalisedValue("berserk") + ": " + Math.Round(player.ifLowHpDmg, 2); // DamageLightMultMine, DamageMediumMultMine , DamageHeavyMultMine, IfLowHpDmgMine
         
-        TextsArray[1].text = "Block chance: " + (int)(Mechs.FinalBlockChance(player, player2, 1.0f) * 100) + " % ; Block pierce mult: " + (int)(player.blockMult * 100) + " %"; // BlockMultMine
+        TextsArray[1].text = LocalisationSystem.GetLocalisedValue("block_chance") + ": " + (int)(Mechs.FinalBlockChance(player, player2, 1.0f) * 100) + " % ;" + LocalisationSystem.GetLocalisedValue("block_pierce") + " :" + (int)(player.blockMult * 100) + " %"; // BlockMultMine
 
-        TextsArray[2].text = "Damage reduction: " + (Math.Round(Convert.DmgRedFunc(player), 2)) * 100 + " %";
+        TextsArray[2].text = LocalisationSystem.GetLocalisedValue("damage_reduction") + ": " + (Math.Round(Convert.DmgRedFunc(player), 2)) * 100 + " %";
 
-        TextsArray[3].text = "Total HP: " + player.maxHealth + " ; Regen bonus: " + player.regBonus + " % "; // HealthBarScriptLeft.maxHealthLeft,   RegBonusMine
+        TextsArray[3].text = LocalisationSystem.GetLocalisedValue("total_hp") + ": " + player.maxHealth + " ; " + LocalisationSystem.GetLocalisedValue("regen_effects") + " : +" + player.regBonus + " % "; // HealthBarScriptLeft.maxHealthLeft,   RegBonusMine
         if (player.strength >= 32)
         {
-            TextsArray[3].text += "; Stamina attack rdct: 15 %";
+            TextsArray[3].text += "; " + LocalisationSystem.GetLocalisedValue("stamina_melee_reduction") + ": 15 %";
         }
         
-        TextsArray[4].text = "Total stamina: " + player.maxStamina + " ; Block stam: " + player.blockStam + " ; Magic stam: " + player.staminaMagic * 100 + " %"; // StaminaBarScriptLeft.maxStaminaLeft, BlockStamLeft, staminaLossMagicLeft
+        TextsArray[4].text = LocalisationSystem.GetLocalisedValue("total_stamina") + " : " + player.maxStamina + " ;" + LocalisationSystem.GetLocalisedValue("block_stam") + " : " + player.blockStam + " ; " + LocalisationSystem.GetLocalisedValue("magic_stam") + " : " + player.staminaMagic * 100 + " %"; // StaminaBarScriptLeft.maxStaminaLeft, BlockStamLeft, staminaLossMagicLeft
         if (player.endurance >= 16)
         {
-            TextsArray[4].text += " ; Stam use rdct: 10 %";
+            TextsArray[4].text += " ; " + LocalisationSystem.GetLocalisedValue("stamina_use_reduction") + " : 10 %";
         }
 
-        TextsArray[5].text = "Move dist: " + Convert.MoveFunc(player) + " ; Light dist: " + Convert.LightDistFunc(player) + " ; MediumDist: " + Convert.MediumDistFunc(player) + " ; HeavyDist: " + player.heavyDist * player.moveMult;
+        TextsArray[5].text = LocalisationSystem.GetLocalisedValue("move_dist") + " : " + Convert.MoveFunc(player) + " ; " + LocalisationSystem.GetLocalisedValue("light_dist") + " : " + Convert.LightDistFunc(player) + " ; " + LocalisationSystem.GetLocalisedValue("medium_dist") + " : " + Convert.MediumDistFunc(player) + " ; " + LocalisationSystem.GetLocalisedValue("heavy_dist") + " : " + player.heavyDist * player.moveMult;
         
-        TextsArray[6].text = "Stam sleep: " + Convert.StaminaRestoreFunc(player) + " ; Stam regen: " + Convert.StaminaRestoreSwap(player); // StaminaPerSleepMine, StaminaRegenWhenSwapMine
+        TextsArray[6].text = LocalisationSystem.GetLocalisedValue("stam_sleep") + " : " + Convert.StaminaRestoreFunc(player) + " ; " + LocalisationSystem.GetLocalisedValue("stam_regen") + " : " + Convert.StaminaRestoreSwap(player); // StaminaPerSleepMine, StaminaRegenWhenSwapMine
         if (player.sleep >= 16)
         {
-            TextsArray[6].text += " ; Magic: " + Convert.MagicDmgFunc(player) + " ; Magic debuff chance: " + Convert.MagicDebuffChance(player); //  IceMagicMultMine
+            TextsArray[6].text += " ; " + LocalisationSystem.GetLocalisedValue("magic_dmg") + " : " + Convert.MagicDmgFunc(player) + " ;" + LocalisationSystem.GetLocalisedValue("magic_debuff_chance") + " : " + Convert.MagicDebuffChance(player); //  IceMagicMultMine
             //Debug.Log(Convert.MagicDmgFunc(player) + "    " + player.magicModif);
         }
 
-        TextsArray[7].text = "HP Sleep: " + Convert.HealthRestoreFunc(player) + " ; HP regen: " + Convert.HealthRestoreSwap(player); // HealthPerSleepMine, HealthRegenWhenSwapMine
+        TextsArray[7].text = LocalisationSystem.GetLocalisedValue("hp_sleep") + ": " + Convert.HealthRestoreFunc(player) + " ; " + LocalisationSystem.GetLocalisedValue("hp_regen") + " : " + Convert.HealthRestoreSwap(player); // HealthPerSleepMine, HealthRegenWhenSwapMine
        
         TextsArray[8].text = (player.Lvl).ToString();
         if (player.critModif > 0)
@@ -260,14 +260,14 @@ public class PlayerInterface
         {
             TextsArray[12].text = ": 0 %";
         }
-        TextsArray[13].text = "Attack\n" + player.attack;
-        TextsArray[14].text = "Agility\n" + player.agility;
-        TextsArray[15].text = "Power\n" + player.power;
-        TextsArray[16].text = "Strength\n" + player.strength;
-        TextsArray[17].text = "Endurance\n" + player.endurance;
-        TextsArray[18].text = "Speed\n" + player.speed;
-        TextsArray[19].text = "Sleep\n" + player.sleep;
-        TextsArray[20].text = "Regen\n" + player.regen;
+        TextsArray[13].text = LocalisationSystem.GetLocalisedValue("attack") + "\n" + player.attack;
+        TextsArray[14].text = LocalisationSystem.GetLocalisedValue("agility") + "\n" + player.agility;
+        TextsArray[15].text = LocalisationSystem.GetLocalisedValue("power") + "\n" + player.power;
+        TextsArray[16].text = LocalisationSystem.GetLocalisedValue("strength") + "\n" + player.strength;
+        TextsArray[17].text = LocalisationSystem.GetLocalisedValue("endurance") + "\n" + player.endurance;
+        TextsArray[18].text = LocalisationSystem.GetLocalisedValue("speed") + "\n" + player.speed;
+        TextsArray[19].text = LocalisationSystem.GetLocalisedValue("sleep") + "\n" + player.sleep;
+        TextsArray[20].text = LocalisationSystem.GetLocalisedValue("regen") + "\n" + player.regen;
     }
     #endregion
 }

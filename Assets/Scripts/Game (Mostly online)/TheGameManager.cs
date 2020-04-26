@@ -795,7 +795,7 @@ public class TheGameManager : MonoBehaviour
                 if (playerDist <= Conv.LightDistFunc(Me))
                 {
                     Me.buttons.BtnLight.SetActive(true);
-                    Me.buttons.BtnLight.GetComponentsInChildren<Text>()[0].text = "LIGHT\n" + ((int)(Me.lightChance * 100)).ToString() + " %";
+                    Me.buttons.BtnLight.GetComponentsInChildren<Text>()[0].text = LocalisationSystem.GetLocalisedValue("light") + "\n" + ((int)(Me.lightChance * 100)).ToString() + " %";
                     Me.buttons.BtnLight.GetComponentsInChildren<Text>()[1].text = ((int)(Me.staminaPerMove * Me.staminaLightMult)).ToString();
                 }
                 else
@@ -806,7 +806,7 @@ public class TheGameManager : MonoBehaviour
                 if (playerDist <= Conv.MediumDistFunc(Me))
                 {
                     Me.buttons.BtnMedium.SetActive(true);
-                    Me.buttons.BtnMedium.GetComponentsInChildren<Text>()[0].text = "MEDIUM\n" + ((int)(Me.mediumChance * 100)).ToString() + " %";
+                    Me.buttons.BtnMedium.GetComponentsInChildren<Text>()[0].text = LocalisationSystem.GetLocalisedValue("medium") + "\n" + ((int)(Me.mediumChance * 100)).ToString() + " %";
                     Me.buttons.BtnMedium.GetComponentsInChildren<Text>()[1].text = ((int)(Me.staminaPerMove * Me.staminaMediumMult)).ToString();
                 }
                 else
@@ -817,7 +817,7 @@ public class TheGameManager : MonoBehaviour
                 if (playerDist <= Me.heavyDist)
                 {
                     Me.buttons.BtnHeavy.SetActive(true);
-                    Me.buttons.BtnHeavy.GetComponentsInChildren<Text>()[0].text = "HEAVY\n" + ((int)(Me.heavyChance * 100)).ToString() + " %";
+                    Me.buttons.BtnHeavy.GetComponentsInChildren<Text>()[0].text = LocalisationSystem.GetLocalisedValue("heavy") + "\n" + ((int)(Me.heavyChance * 100)).ToString() + " %";
                     Me.buttons.BtnHeavy.GetComponentsInChildren<Text>()[1].text = ((int)(Me.staminaPerMove * Me.staminaHeavyMult)).ToString();
 
                     Me.buttons.BtnMoveLeft.SetActive(true);

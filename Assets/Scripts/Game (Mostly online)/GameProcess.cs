@@ -70,7 +70,7 @@ public class GameProcess
             // Iterate over the clips and gather their information
             foreach (AnimationClip animClip in animationClips)
             {
-                Debug.Log(animClip.name + ": " + animClip.length);
+                //Debug.Log(animClip.name + ": " + animClip.length);
             }
         }
 

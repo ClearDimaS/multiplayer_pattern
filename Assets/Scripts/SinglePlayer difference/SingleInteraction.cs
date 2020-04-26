@@ -646,12 +646,12 @@ public class SingleInteraction : MonoBehaviour
         Debug.Log(player1.curseDebuff + player1.regBonus);
         if (player2.magicEquipped == "Fire")
         {
-            return "Block chance: " + (blockChancetemp - (int)(player1.fireDebuff * 100)) + " (-" + (int)(player1.fireDebuff * 100) + ") %\n" +
-                "Damage rdct: " + (int)((Convert.DmgRedFunc(player1) - player1.fireDebuff) * 100) + " (-" + (int)(player1.fireDebuff * 100) + ") %";
+            return LocalisationSystem.GetLocalisedValue("block_chance") + ": " + (blockChancetemp - (int)(player1.fireDebuff * 100)) + " (-" + (int)(player1.fireDebuff * 100) + ") %\n" +
+                LocalisationSystem.GetLocalisedValue("damage_reduction") + ": " + (int)((Convert.DmgRedFunc(player1) - player1.fireDebuff) * 100) + " (-" + (int)(player1.fireDebuff * 100) + ") %";
         }
         else
         {
-            return "Regeneration effects \nmultiplyer: " + (int)((player1.regBonus - player1.curseDebuff) * 100) + " (-" + (int)(player1.curseDebuff * 100) + ") %";
+            return LocalisationSystem.GetLocalisedValue("regen_effects") + "\n: x " + (int)((player1.regBonus - player1.curseDebuff) * 100) + " (-" + (int)(player1.curseDebuff * 100) + ") %";
         }
     }
 
@@ -664,16 +664,12 @@ public class SingleInteraction : MonoBehaviour
     }
 
 
-    bool addWatched;
+    public bool addWatched;
 
 
     public void WatchAdd() 
     {
-        // Add check if addvert watched
-
-        addWatched = true;
-
-        RestoreSomeHp();
+       // player1.playerObj.GetComponentInChildren<RewardedAdd>().enabled = true;
     }
 
 
@@ -705,6 +701,12 @@ public class SingleInteraction : MonoBehaviour
 
             SuggestionParent.SetActive(false);
         }
+
+    }
+
+    public void MyHpZero()
+    {
+        player1.health = 0;
 
     }
 }

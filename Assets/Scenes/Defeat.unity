@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -232,11 +233,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5464634469959942565, guid: 91499a7b28965474fa3be2ab040c2e20,
-        type: 3}
-      propertyPath: m_Name
-      value: SceneManager
-      objectReference: {fileID: 0}
     - target: {fileID: 1694269173170085195, guid: 91499a7b28965474fa3be2ab040c2e20,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -291,6 +287,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5464634469959942565, guid: 91499a7b28965474fa3be2ab040c2e20,
+        type: 3}
+      propertyPath: m_Name
+      value: SceneManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91499a7b28965474fa3be2ab040c2e20, type: 3}
@@ -478,6 +479,7 @@ GameObject:
   - component: {fileID: 1041178103}
   - component: {fileID: 1041178105}
   - component: {fileID: 1041178104}
+  - component: {fileID: 1041178106}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -544,6 +546,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1041178102}
   m_CullTransparentMesh: 0
+--- !u!114 &1041178106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041178102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d0f14b6792ca44bfd74a6e700bede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flag: {fileID: 0}
+  key: please_wait
 --- !u!1 &1139929611
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,6 +571,7 @@ GameObject:
   - component: {fileID: 1139929612}
   - component: {fileID: 1139929614}
   - component: {fileID: 1139929613}
+  - component: {fileID: 1139929615}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -578,8 +595,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: 1400, y: 170}
+  m_AnchoredPosition: {x: 0.000002265, y: 0}
+  m_SizeDelta: {x: 1561.2439, y: 240.00003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1139929613
 MonoBehaviour:
@@ -601,7 +618,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: f19dc6a95725063489a25221c7a64a5d, type: 3}
-    m_FontSize: 180
+    m_FontSize: 150
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -621,6 +638,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1139929611}
   m_CullTransparentMesh: 0
+--- !u!114 &1139929615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139929611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d0f14b6792ca44bfd74a6e700bede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flag: {fileID: 0}
+  key: main_menu
 --- !u!1 &1144296627
 GameObject:
   m_ObjectHideFlags: 0
@@ -779,6 +810,7 @@ GameObject:
   - component: {fileID: 1480460207}
   - component: {fileID: 1480460209}
   - component: {fileID: 1480460208}
+  - component: {fileID: 1480460210}
   m_Layer: 5
   m_Name: DefeatMessage (1)
   m_TagString: Untagged
@@ -802,8 +834,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 27.99997, y: -17.5}
-  m_SizeDelta: {x: 1901.7, y: 355.5}
+  m_AnchoredPosition: {x: -3, y: -17.5}
+  m_SizeDelta: {x: 2313.2053, y: 355.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1480460208
 MonoBehaviour:
@@ -845,6 +877,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1480460206}
   m_CullTransparentMesh: 0
+--- !u!114 &1480460210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480460206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d0f14b6792ca44bfd74a6e700bede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flag: {fileID: 0}
+  key: defeat
 --- !u!1 &1484539371
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,6 +1051,7 @@ GameObject:
   - component: {fileID: 1755821063}
   - component: {fileID: 1755821065}
   - component: {fileID: 1755821064}
+  - component: {fileID: 1755821066}
   m_Layer: 5
   m_Name: DefeatMessage
   m_TagString: Untagged
@@ -1029,8 +1076,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.4, y: 1.29}
-  m_SizeDelta: {x: 1901.7, y: 355.5}
+  m_AnchoredPosition: {x: 1.046, y: 1.29}
+  m_SizeDelta: {x: 2418.2717, y: 355.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1755821064
 MonoBehaviour:
@@ -1072,6 +1119,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1755821062}
   m_CullTransparentMesh: 0
+--- !u!114 &1755821066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755821062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d0f14b6792ca44bfd74a6e700bede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flag: {fileID: 0}
+  key: defeat
 --- !u!1 &1793291337
 GameObject:
   m_ObjectHideFlags: 0
@@ -1219,6 +1280,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

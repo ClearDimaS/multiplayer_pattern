@@ -84,7 +84,7 @@ public class SingleEnemyHandler
                 }
 
 
-                Debug.Log(randIndexType + "          EqSlot: " + EqSlot);
+                //Debug.Log(randIndexType + "          EqSlot: " + EqSlot);
                 if (randIndexType == 9 || randIndexType == 10 || randIndexType == 11)
                 {
                     DataController.SaveValue("Equipped" + "LeftHand" + "Other", "");
@@ -108,7 +108,7 @@ public class SingleEnemyHandler
             }
 
 
-            Debug.Log("Item : " + ForEZEdit.EquipmentNames[randIndexName] + Equipment.ForInvLoad[index] + " , is now equipped at slot with name: " + EqSlot);
+            //Debug.Log("Item : " + ForEZEdit.EquipmentNames[randIndexName] + Equipment.ForInvLoad[index] + " , is now equipped at slot with name: " + EqSlot);
 
             index++;
         }
@@ -349,14 +349,17 @@ public class SingleEnemyHandler
 
     public void MakeAMoveEasy(GameProcess Me, GameProcess Enemy) 
     {
-        Debug.Log("Bot Makes a move");
-        if (Mathf.Abs(Me.playerObj.transform.localPosition.x - Enemy.playerObj.transform.localPosition.x) > Enemy.heavyDist)
+        if (!SingleGameManager.instance.GameOver) 
         {
-            SingleInteraction.instance.MoveCloserRightBtn();
-        }
-        else 
-        {
-            SingleInteraction.instance.LightAttackRightBtn();
+            Debug.Log("Bot Makes a move");
+            if (Mathf.Abs(Me.playerObj.transform.localPosition.x - Enemy.playerObj.transform.localPosition.x) > Enemy.heavyDist)
+            {
+                SingleInteraction.instance.MoveCloserRightBtn();
+            }
+            else
+            {
+                SingleInteraction.instance.LightAttackRightBtn();
+            }
         }
     }
 
@@ -366,14 +369,21 @@ public class SingleEnemyHandler
 
     public void MakeAMoveMedium(GameProcess Me, GameProcess Enemy)
     {
-        Debug.Log("Bot Makes a move");
-        if (Mathf.Abs(Me.playerObj.transform.localPosition.x - Enemy.playerObj.transform.localPosition.x) > Enemy.heavyDist)
+        if (!SingleGameManager.instance.GameOver)
         {
-            if (Enemy.stamina > Enemy.maxStamina / 2)
+            Debug.Log("Bot Makes a move");
+            if (Mathf.Abs(Me.playerObj.transform.localPosition.x - Enemy.playerObj.transform.localPosition.x) > Enemy.heavyDist)
             {
-                if (Enemy.sleep >= 16)
+                if (Enemy.stamina > Enemy.maxStamina / 2)
                 {
-                    SingleInteraction.instance.MagicAttackRightBtn();
+                    if (Enemy.sleep >= 16)
+                    {
+                        SingleInteraction.instance.MagicAttackRightBtn();
+                    }
+                    else
+                    {
+                        SingleInteraction.instance.MoveCloserRightBtn();
+                    }
                 }
                 else
                 {
@@ -382,33 +392,29 @@ public class SingleEnemyHandler
             }
             else
             {
-                SingleInteraction.instance.MoveCloserRightBtn();
-            }
-        }
-        else
-        {
-            randNum = UnityEngine.Random.Range(0, 4);
-            if (randNum == 0)
-            {
-                SingleInteraction.instance.LightAttackRightBtn();
-            }
-            else if (randNum == 1)
-            {
-                SingleInteraction.instance.MediumAttackRightBtn();
-            }
-            else if (randNum == 2)
-            {
-                SingleInteraction.instance.HeavyAttackRightBtn();
-            }
-            else if (randNum == 3)
-            {
-                if (Enemy.sleep >= 16)
+                randNum = UnityEngine.Random.Range(0, 4);
+                if (randNum == 0)
                 {
-                    SingleInteraction.instance.MagicAttackRightBtn();
+                    SingleInteraction.instance.LightAttackRightBtn();
                 }
-                else 
+                else if (randNum == 1)
+                {
+                    SingleInteraction.instance.MediumAttackRightBtn();
+                }
+                else if (randNum == 2)
                 {
                     SingleInteraction.instance.HeavyAttackRightBtn();
+                }
+                else if (randNum == 3)
+                {
+                    if (Enemy.sleep >= 16)
+                    {
+                        SingleInteraction.instance.MagicAttackRightBtn();
+                    }
+                    else
+                    {
+                        SingleInteraction.instance.HeavyAttackRightBtn();
+                    }
                 }
             }
         }
@@ -417,49 +423,52 @@ public class SingleEnemyHandler
 
     public void MakeAMoveHard(GameProcess Me, GameProcess Enemy)
     {
-        Debug.Log("Bot Makes a move");
-        if (Mathf.Abs(Me.playerObj.transform.localPosition.x - Enemy.playerObj.transform.localPosition.x) > Enemy.heavyDist)
+        if (!SingleGameManager.instance.GameOver)
         {
-            if (Enemy.stamina > Enemy.maxStamina / 2)
+            Debug.Log("Bot Makes a move");
+            if (Mathf.Abs(Me.playerObj.transform.localPosition.x - Enemy.playerObj.transform.localPosition.x) > Enemy.heavyDist)
             {
-                if (Enemy.sleep >= 16)
+                if (Enemy.stamina > Enemy.maxStamina / 2)
                 {
-                    SingleInteraction.instance.MagicAttackRightBtn();
+                    if (Enemy.sleep >= 16)
+                    {
+                        SingleInteraction.instance.MagicAttackRightBtn();
+                    }
+                    else
+                    {
+                        SingleInteraction.instance.MoveCloserRightBtn();
+                    }
                 }
                 else
                 {
-                    SingleInteraction.instance.MoveCloserRightBtn();
+                    SingleInteraction.instance.MoveFarerRightBtn();
                 }
             }
             else
             {
-                SingleInteraction.instance.MoveFarerRightBtn();
-            }
-        }
-        else
-        {
-            randNum = UnityEngine.Random.Range(0, 4);
-            if (randNum == 0)
-            {
-                SingleInteraction.instance.LightAttackRightBtn();
-            }
-            else if (randNum == 1)
-            {
-                SingleInteraction.instance.MediumAttackRightBtn();
-            }
-            else if (randNum == 2)
-            {
-                SingleInteraction.instance.HeavyAttackRightBtn();
-            }
-            else if (randNum == 3)
-            {
-                if (Enemy.sleep >= 16)
+                randNum = UnityEngine.Random.Range(0, 4);
+                if (randNum == 0)
                 {
-                    SingleInteraction.instance.MagicAttackRightBtn();
+                    SingleInteraction.instance.LightAttackRightBtn();
                 }
-                else
+                else if (randNum == 1)
+                {
+                    SingleInteraction.instance.MediumAttackRightBtn();
+                }
+                else if (randNum == 2)
                 {
                     SingleInteraction.instance.HeavyAttackRightBtn();
+                }
+                else if (randNum == 3)
+                {
+                    if (Enemy.sleep >= 16)
+                    {
+                        SingleInteraction.instance.MagicAttackRightBtn();
+                    }
+                    else
+                    {
+                        SingleInteraction.instance.HeavyAttackRightBtn();
+                    }
                 }
             }
         }

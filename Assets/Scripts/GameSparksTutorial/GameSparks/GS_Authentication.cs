@@ -184,6 +184,7 @@ namespace GameSparksTutorials
                                 //Debug.Log(vg.GetString("name"));
                             }
                         }
+                        Debug.Log(vg.GetString("name"));
                         DataController.SaveValue(vg.GetString("name") + "Price", (int)vg.GetGSData("currencyCosts").GetInt("Bread"));
                         DataController.SaveValue(vg.GetString("name") + "SellPrice", (int)vg.GetGSData("currencyCosts").GetInt("BreadPrice"));
                     }

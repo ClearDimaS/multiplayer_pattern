@@ -24,7 +24,7 @@ public class Inventory : MonoBehaviour
     public delegate void OnItemChanhged();
     public OnItemChanhged onItemChanhgedCallback;
 
-    public int space = 20;
+    public int space = 40;
 
     public List<Item> items = new List<Item>();
 
@@ -65,7 +65,7 @@ public class Inventory : MonoBehaviour
 
     public void MoveOut() 
     {
-        InventoryObj.transform.position = new Vector3(-2, -15, 0);
+        InventoryObj.transform.position = new Vector3(-2, -35, 0);
     }
 
     public void MoveIn(string InOrOut)
@@ -77,7 +77,7 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            InventoryObj.transform.position = new Vector3(-2, -15, 0);
+            InventoryObj.transform.position = new Vector3(-2, -35, 0);
         }
     }
 }

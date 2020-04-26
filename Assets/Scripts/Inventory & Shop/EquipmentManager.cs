@@ -51,7 +51,18 @@ public class EquipmentManager : MonoBehaviour
 
     public void Equip(Equipment newItem)
     {
-        Debug.Log(currentEquipment[7]);
+        //foreach (Equipment eq in EquipmentManager.instance.currentEquipment) 
+        //{
+        //    if (eq == null)
+        //    {
+        //        Debug.Log("item is null");
+        //    }
+        //    else 
+        //    {
+        //        Debug.Log(eq.name + "   " + eq.equipSlot);
+        //    }
+        //}
+        //Debug.Log(currentEquipment[7]);
         ShowPlayerStats.WasChanged = true;
         //Debug.Log("Trying to equip" + "" + newItem.name);
 
@@ -68,7 +79,7 @@ public class EquipmentManager : MonoBehaviour
         DataController.SaveValue(newItem.name + "Equipped", 2);
         Equipment oldItem = null;
 
-        DataController.SaveValue("Equipped" + ForEquipmentImgsLoad[(int)newItem.equipSlot] + "Mine", newItem.name);
+        Debug.Log("Equipped" + ForEquipmentImgsLoad[(int)newItem.equipSlot] + "Mine" + "         " + DataController.GetValue<string>("Equipped" + ForEquipmentImgsLoad[(int)newItem.equipSlot] + "Mine"));
 
         if (slotIndex == 7)
         {
@@ -115,6 +126,8 @@ public class EquipmentManager : MonoBehaviour
             {
                 onEquipmentChanged.Invoke(newItem, oldItem);
             }
+
+
             currentEquipment[slotIndex] = newItem;
 
             ListOfIcons[slotIndex].image.sprite = newItem.icon;
@@ -123,6 +136,8 @@ public class EquipmentManager : MonoBehaviour
             ListOfImages[slotIndex].sprite = Resources.Load<Sprite>(newItem.name);
             ListOfImages[slotIndex].color = Color.white;
         }
+
+        DataController.SaveValue("Equipped" + ForEquipmentImgsLoad[(int)newItem.equipSlot] + "Mine", newItem.name);
     }
     public void EquipInShop(Equipment newItem)
     {

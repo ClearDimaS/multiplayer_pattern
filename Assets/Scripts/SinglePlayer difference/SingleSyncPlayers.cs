@@ -57,7 +57,7 @@ public class SingleSyncPlayers : MonoBehaviour
 
         if (!loadDone) 
         {
-            Debug.Log("Loading recieved players data...");
+            //Debug.Log("Loading recieved players data...");
 
             if (IAmACopy)
             {
@@ -216,8 +216,23 @@ public class SingleSyncPlayers : MonoBehaviour
         DataController.SaveValue("blockvar6Right", (int)(Time.time + 11) % 15);
     }
 
+    string TempMineLeft;
+    string TempMineRight;
+
+    string TempOtherLeft;
+    string TempOtherRight;
+
     void LoadSprites()
     {
+
+        Debug.Log("LeftHand: " + DataController.GetValue<string>("Equipped" + "LeftHand" + "Other"));
+        Debug.Log("RightHand: " + DataController.GetValue<string>("Equipped" + "RightHand" + "Other"));
+        Debug.Log("Head: " + DataController.GetValue<string>("Equipped" + "Head" + "Mine"));
+        Debug.Log("Chest: " + DataController.GetValue<string>("Equipped" + "Chest" + "Mine"));
+        Debug.Log("Legs: " + DataController.GetValue<string>("Equipped" + "Legs" + "Mine"));
+        Debug.Log("Arms: " + DataController.GetValue<string>("Equipped" + "Arms" + "Mine"));
+        Debug.Log("Feet: " + DataController.GetValue<string>("Equipped" + "Feet" + "Mine"));
+
         GameObject LeftHead = GameObject.FindGameObjectsWithTag("Head")[0];
         GameObject LeftHair = GameObject.FindGameObjectsWithTag("HairStyle")[0];
         GameObject LeftBeard = GameObject.FindGameObjectsWithTag("Beard")[0];
@@ -314,26 +329,27 @@ public class SingleSyncPlayers : MonoBehaviour
         }
         else
         {
+            Debug.Log("No arms equipped");
             LeftSleevesLeftShoulder.GetComponent<SpriteRenderer>().color = Color.clear;
             LeftSleevesRightShoulder.GetComponent<SpriteRenderer>().color = Color.clear;
             LeftSleevesLeftElbow.GetComponent<SpriteRenderer>().color = Color.clear;
             LeftSleevesRightElbow.GetComponent<SpriteRenderer>().color = Color.clear;
         }
-        if (DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine") != "")
+        if (DataController.GetValue<string>("Equipped" + "RightHand" + "Mine") != "")
         {
-            LeftLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine"));
+            LeftRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Mine"));
         }
         else
         {
-            LeftLeftHand.GetComponent<SpriteRenderer>().color = Color.clear;
+            LeftRightHand.GetComponent<SpriteRenderer>().color = Color.clear;
         }
-        if (DataController.GetValue<string>("Equipped" + "RightHand" + "Mine") != "")
+        if (DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine") != "")
         {
-            if (DataController.GetValue<string>("Equipped" + "RightHand" + "Mine").Contains("Daggers"))
+            if (DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine").Contains("Daggers"))
             {
-                LeftLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Mine") + "Left");
+                LeftLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine") + "Right");
 
-                LeftRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Mine") + "Right");
+                LeftRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine") + "Left");
 
                 LeftRightHand.GetComponent<SpriteRenderer>().color = Color.white;
 
@@ -341,12 +357,12 @@ public class SingleSyncPlayers : MonoBehaviour
             }
             else
             {
-                LeftRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Mine"));
+                LeftLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Mine"));
             }
         }
         else
         {
-            LeftRightHand.GetComponent<SpriteRenderer>().color = Color.clear;
+            LeftLeftHand.GetComponent<SpriteRenderer>().color = Color.clear;
         }
         if (DataController.GetValue<string>("Equipped" + "Legs" + "Mine") != "")
         {
@@ -407,6 +423,7 @@ public class SingleSyncPlayers : MonoBehaviour
             RightSleevesLeftElbow.GetComponent<SpriteRenderer>().color = Color.clear;
             RightSleevesRightElbow.GetComponent<SpriteRenderer>().color = Color.clear;
         }
+
         if (DataController.GetValue<string>("Equipped" + "LeftHand" + "Other") != "")
         {
             RightLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "LeftHand" + "Other"));
@@ -415,13 +432,14 @@ public class SingleSyncPlayers : MonoBehaviour
         {
             RightLeftHand.GetComponent<SpriteRenderer>().color = Color.clear;
         }
+
         if (DataController.GetValue<string>("Equipped" + "RightHand" + "Other") != "")
         {
             if (DataController.GetValue<string>("Equipped" + "RightHand" + "Other").Contains("Daggers"))
             {
-                RightLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Other") + "Left");
+                RightLeftHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Other") + "Right");
 
-                RightRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Other") + "Right");
+                RightRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Other") + "Left");
 
                 RightRightHand.GetComponent<SpriteRenderer>().color = Color.white;
 
@@ -431,11 +449,13 @@ public class SingleSyncPlayers : MonoBehaviour
             {
                 RightRightHand.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "RightHand" + "Other"));
             }
+
         }
         else
         {
             RightRightHand.GetComponent<SpriteRenderer>().color = Color.clear;
         }
+
         if (DataController.GetValue<string>("Equipped" + "Legs" + "Other") != "")
         {
             RightPantsWaist.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(DataController.GetValue<string>("Equipped" + "Legs" + "Other") + "Waist");

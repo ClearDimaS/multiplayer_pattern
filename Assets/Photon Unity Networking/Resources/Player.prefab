@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 594400206006532216}
   - component: {fileID: 8672352261460256629}
   - component: {fileID: 8246105507699316874}
+  - component: {fileID: 1461473615279564710}
   m_Layer: 5
   m_Name: NameLevel
   m_TagString: Untagged
@@ -34,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -655, y: 2082}
+  m_AnchoredPosition: {x: -750, y: 2082}
   m_SizeDelta: {x: 365.5, y: 255.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8672352261460256629
@@ -77,6 +78,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Level
+--- !u!114 &1461473615279564710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161843909110995930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d0f14b6792ca44bfd74a6e700bede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flag: {fileID: 0}
+  key: level
 --- !u!1 &415900427327075296
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,6 +184,7 @@ GameObject:
   - component: {fileID: 5727193847299677245}
   - component: {fileID: 8343289409928536822}
   - component: {fileID: 1647989936225667215}
+  - component: {fileID: 4586495112776576432}
   m_Layer: 5
   m_Name: NameCrit
   m_TagString: Untagged
@@ -235,6 +251,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Total Crit Chance:'
+--- !u!114 &4586495112776576432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555925203466592075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d0f14b6792ca44bfd74a6e700bede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flag: {fileID: 0}
+  key: crit_chance
 --- !u!1 &653555707142135852
 GameObject:
   m_ObjectHideFlags: 0
@@ -1676,6 +1706,7 @@ GameObject:
   - component: {fileID: 1941756364335576424}
   - component: {fileID: 7811072355874156710}
   - component: {fileID: 3473909047591618180}
+  - component: {fileID: 1272190555246750360}
   m_Layer: 5
   m_Name: NameMiss
   m_TagString: Untagged
@@ -1742,6 +1773,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Total Miss Chance:'
+--- !u!114 &1272190555246750360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583921670722724255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d0f14b6792ca44bfd74a6e700bede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flag: {fileID: 0}
+  key: miss_chance
 --- !u!1 &1673704041939586070
 GameObject:
   m_ObjectHideFlags: 0
@@ -2233,6 +2278,7 @@ GameObject:
   - component: {fileID: 636460101471140594}
   - component: {fileID: 6949341014098473262}
   - component: {fileID: 7626974218148946311}
+  - component: {fileID: 255902636981070805}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -2287,7 +2333,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: f19dc6a95725063489a25221c7a64a5d, type: 3}
-    m_FontSize: 90
+    m_FontSize: 71
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
@@ -2299,6 +2345,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Exit
+--- !u!114 &255902636981070805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021321862622796833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d0f14b6792ca44bfd74a6e700bede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flag: {fileID: 0}
+  key: exit
 --- !u!1 &2080467366105075478
 GameObject:
   m_ObjectHideFlags: 0
@@ -2310,6 +2370,7 @@ GameObject:
   - component: {fileID: 5611532518987595571}
   - component: {fileID: 2379957614220063006}
   - component: {fileID: 8964103826904820535}
+  - component: {fileID: 889942035015334437}
   m_Layer: 5
   m_Name: NameCrit
   m_TagString: Untagged
@@ -2376,6 +2437,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Total Crit Chance:'
+--- !u!114 &889942035015334437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080467366105075478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d0f14b6792ca44bfd74a6e700bede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flag: {fileID: 0}
+  key: crit_chance
 --- !u!1 &2108697892050118872
 GameObject:
   m_ObjectHideFlags: 0
@@ -2632,6 +2707,7 @@ GameObject:
   - component: {fileID: 93788433730627740}
   - component: {fileID: 2327952479531765122}
   - component: {fileID: 6700928004391743631}
+  - component: {fileID: 1591465785285153435}
   m_Layer: 5
   m_Name: Text (1)
   m_TagString: Untagged
@@ -2655,8 +2731,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 29, y: -43}
-  m_SizeDelta: {x: 3124, y: 1676}
+  m_AnchoredPosition: {x: 36, y: -43}
+  m_SizeDelta: {x: 3196.2563, y: 1676}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2327952479531765122
 CanvasRenderer:
@@ -2700,6 +2776,20 @@ MonoBehaviour:
   m_Text: 'Searching for players....
 
 '
+--- !u!114 &1591465785285153435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2304558298835405917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d0f14b6792ca44bfd74a6e700bede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flag: {fileID: 0}
+  key: searching
 --- !u!1 &2453599453380874846
 GameObject:
   m_ObjectHideFlags: 0
@@ -4532,6 +4622,7 @@ GameObject:
   - component: {fileID: 4890367994667485443}
   - component: {fileID: 1912733791156583751}
   - component: {fileID: 591451301322178951}
+  - component: {fileID: 1448839988931513097}
   m_Layer: 5
   m_Name: NameBash
   m_TagString: Untagged
@@ -4598,6 +4689,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Total Bash Chance:'
+--- !u!114 &1448839988931513097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3448163577357158302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d0f14b6792ca44bfd74a6e700bede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flag: {fileID: 0}
+  key: bash_chance
 --- !u!1 &3534819456771580027
 GameObject:
   m_ObjectHideFlags: 0
@@ -4974,6 +5079,7 @@ GameObject:
   - component: {fileID: 9152052883109296565}
   - component: {fileID: 8005379017701346938}
   - component: {fileID: 712127190010394480}
+  - component: {fileID: 1543279127097492465}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -5042,6 +5148,20 @@ MonoBehaviour:
   m_Text: 'Leave
 
 '
+--- !u!114 &1543279127097492465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3795269274058935207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d0f14b6792ca44bfd74a6e700bede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flag: {fileID: 0}
+  key: leave
 --- !u!1 &3817228474290185493
 GameObject:
   m_ObjectHideFlags: 0
@@ -5715,6 +5835,7 @@ GameObject:
   - component: {fileID: 2718351384324539346}
   - component: {fileID: 7901545004753511782}
   - component: {fileID: 4069303104810111187}
+  - component: {fileID: 5422979433989479262}
   m_Layer: 5
   m_Name: NameBash
   m_TagString: Untagged
@@ -5781,6 +5902,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Total Bash Chance:'
+--- !u!114 &5422979433989479262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4162774273665478277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d0f14b6792ca44bfd74a6e700bede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flag: {fileID: 0}
+  key: bash_chance
 --- !u!1 &4241702092276805946
 GameObject:
   m_ObjectHideFlags: 0
@@ -6815,6 +6950,7 @@ GameObject:
   - component: {fileID: 3382921073255540327}
   - component: {fileID: 4871683407368945197}
   - component: {fileID: 5822516013457164375}
+  - component: {fileID: 3912194350280142012}
   m_Layer: 5
   m_Name: NameLevel
   m_TagString: Untagged
@@ -6838,7 +6974,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -655, y: 2082}
+  m_AnchoredPosition: {x: -791, y: 2082}
   m_SizeDelta: {x: 365.5, y: 255.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4871683407368945197
@@ -6881,6 +7017,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Level:'
+--- !u!114 &3912194350280142012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4872128874634163700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d0f14b6792ca44bfd74a6e700bede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flag: {fileID: 0}
+  key: level
 --- !u!1 &4909059224593439633
 GameObject:
   m_ObjectHideFlags: 0
@@ -7190,6 +7340,7 @@ GameObject:
   - component: {fileID: 7621999344747708987}
   - component: {fileID: 3066927615422284293}
   - component: {fileID: 7119543682728400506}
+  - component: {fileID: 7177185037616519587}
   m_Layer: 5
   m_Name: NameStun
   m_TagString: Untagged
@@ -7256,6 +7407,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Total Stun Chance:'
+--- !u!114 &7177185037616519587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5027804469048695071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d0f14b6792ca44bfd74a6e700bede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flag: {fileID: 0}
+  key: stun_chance
 --- !u!1 &5031534012727178976
 GameObject:
   m_ObjectHideFlags: 0
@@ -7643,6 +7808,7 @@ GameObject:
   - component: {fileID: 8844931909301352227}
   - component: {fileID: 2627171081064123521}
   - component: {fileID: 5561124748669838935}
+  - component: {fileID: 8596703349213444191}
   m_Layer: 5
   m_Name: NameStun
   m_TagString: Untagged
@@ -7709,6 +7875,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Total Stun Chance:'
+--- !u!114 &8596703349213444191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5385549291537476919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d0f14b6792ca44bfd74a6e700bede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flag: {fileID: 0}
+  key: stun_chance
 --- !u!1 &5389713811235370578
 GameObject:
   m_ObjectHideFlags: 0
@@ -7937,7 +8117,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 5b3a9a00af7abf648878e9b6fba3937b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -9386,6 +9566,7 @@ GameObject:
   - component: {fileID: 2334481020470968466}
   - component: {fileID: 950774110536858861}
   - component: {fileID: 3294140926560690764}
+  - component: {fileID: 2041278828281214475}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -9457,6 +9638,20 @@ MonoBehaviour:
     333
 
 '
+--- !u!114 &2041278828281214475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6766952727535792725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d0f14b6792ca44bfd74a6e700bede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flag: {fileID: 0}
+  key: searching
 --- !u!1 &6772586576393659257
 GameObject:
   m_ObjectHideFlags: 0
@@ -10460,6 +10655,7 @@ GameObject:
   - component: {fileID: 8631226847075496719}
   - component: {fileID: 6379185145945331194}
   - component: {fileID: 3584868102049605687}
+  - component: {fileID: 7378884595255776819}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -10527,6 +10723,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Cancel
+--- !u!114 &7378884595255776819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7331246455350631254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d0f14b6792ca44bfd74a6e700bede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flag: {fileID: 0}
+  key: cancel
 --- !u!1 &7374138488132302755
 GameObject:
   m_ObjectHideFlags: 0
@@ -11930,7 +12140,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: 1ea2b337a7822704ebe67423a5e17806, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -12034,6 +12244,7 @@ GameObject:
   - component: {fileID: 4944004136900205820}
   - component: {fileID: 2087415256807933535}
   - component: {fileID: 8211511276593631041}
+  - component: {fileID: 1959139240994174756}
   m_Layer: 5
   m_Name: NameMiss
   m_TagString: Untagged
@@ -12100,6 +12311,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Total Miss Chance:'
+--- !u!114 &1959139240994174756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7828236426679770971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d0f14b6792ca44bfd74a6e700bede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flag: {fileID: 0}
+  key: miss_chance
 --- !u!1 &7838054737166902032
 GameObject:
   m_ObjectHideFlags: 0
@@ -12649,7 +12874,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 11
+  m_SortingOrder: 12
   m_Sprite: {fileID: 21300000, guid: f3d2a788fe125f2459655c0f09f710e6, type: 3}
   m_Color: {r: 1, g: 0.98509806, b: 0.8129804, a: 1}
   m_FlipX: 0
@@ -13270,7 +13495,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 358bb2f5c984d6144890ddf19053e6a9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

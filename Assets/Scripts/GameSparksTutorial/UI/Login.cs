@@ -76,7 +76,7 @@ namespace GameSparksTutorials
             {
                 OnLoginResponse(displayName);
 
-                PopUpMessage.ActivatePopUp(delegate { UIController.SetActivePanel(UI_Element.SignUp); }, "If you dont sign up your game data will not be saved after you quit!");
+                PopUpMessage.ActivatePopUp(delegate { UIController.SetActivePanel(UI_Element.SignUp); }, LocalisationSystem.GetLocalisedValue("guest_warning"));
             } else 
             {
                 Debug.Log("Error OnGuestLoginResponse");

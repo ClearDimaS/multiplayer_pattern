@@ -36,8 +36,10 @@ public class DispSpecials : MonoBehaviour
     public static List<string> SleepTexts = new List<string>();
     public static List<string> RegenTexts = new List<string>();
 
-    List<string> StatsList = new List<string> { "Attack", "Agility",  "Power", "Strength", "Endurance", "Speed", "Sleep", "Regen"};
-    List<List<string>> AllTexts = new List<List<string>>(); 
+    List<string> StatsList = new List<string> { "Attack", "Agility", "Power", "Strength", "Endurance", "Speed", "Sleep", "Regen" };
+
+    List<string> StatsList2 = new List<string> { "attack", "agility", "power", "strength", "endurance", "speed", "sleep", "regen" };
+    List<List<string>> AllTexts = new List<List<string>>();
     // Start is called before the first frame update
     int specialsCounter;
     int StatNum;
@@ -68,26 +70,25 @@ public class DispSpecials : MonoBehaviour
     }
 
 
-    public void ShowOrHide() 
+    public void ShowOrHide()
     {
         specialsCounter = 0;
         StatNum = 0;
         SpecialsMenu.SetActive(!SpecialsMenu.activeSelf);
         Texts = SpecialsMenu.GetComponentsInChildren<Text>();
-        if (SpecialsMenu.activeSelf) 
+        if (SpecialsMenu.activeSelf)
         {
             foreach (string StatName in StatsList)
             {
                 if (Title.text.Contains(StatName))
                 {
-                    Texts[5].text = "Specials " + StatName + " :";
-                    Texts[6].text = "Specials " + StatName + " :";
+                    Texts[5].text = LocalisationSystem.GetLocalisedValue("specials") + " " + LocalisationSystem.GetLocalisedValue(StatName.ToLower()) + " :";
+                    Texts[6].text = LocalisationSystem.GetLocalisedValue("specials") + " " + LocalisationSystem.GetLocalisedValue(StatName.ToLower()) + " :";
                     foreach (Text text in Texts)
                     {
-                        Debug.Log(specialsCounter + "     " + StatNum);
-                        if (specialsCounter < 5) 
+                        if (specialsCounter < 5)
                         {
-                            text.text = "Tier" + (specialsCounter + 1) + " : " + AllTexts[StatNum][specialsCounter];
+                            text.text = LocalisationSystem.GetLocalisedValue("tier") + (specialsCounter + 1) + " : " + AllTexts[StatNum][specialsCounter];
                         }
                         specialsCounter++;
                     }

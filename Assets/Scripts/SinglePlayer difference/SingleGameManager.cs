@@ -12,6 +12,8 @@ public class SingleGameManager : MonoBehaviour
 
     public void Awake()
     {
+        GameOver = false;
+
         if (instance != null)
         {
             Debug.LogWarning("More than one instance of TheGameManager found!");
@@ -348,7 +350,7 @@ public class SingleGameManager : MonoBehaviour
 
         player.WinAnimNumber = DataController.GetValue<int>("WinAnimNumber" + MineOrOther);
 
-        Debug.Log(DataController.GetValue<string>("EquippedMagicMine") + "    " + DataController.GetValue<string>("EquippedMagicOther"));
+        //Debug.Log(DataController.GetValue<string>("EquippedMagicMine") + "    " + DataController.GetValue<string>("EquippedMagicOther"));
 
         if (DataController.GetValue<string>("EquippedMagic" + MineOrOther) != "")
         {
@@ -487,7 +489,7 @@ public class SingleGameManager : MonoBehaviour
                 UpdButtonsTexts();
             }
 
-            Debug.Log(player1.cursed + "   " + player1.onFire );
+            //Debug.Log(player1.cursed + "   " + player1.onFire );
             if (player1.cursed > 0)
             {
                 player1.animation.setAnimatorBoolTrue("Magic" + player2.magicEquipped);
@@ -609,7 +611,10 @@ public class SingleGameManager : MonoBehaviour
             }
             else
             {
-                LoseGame();
+                if (Me.playerObj.GetComponentInChildren<SingleInteraction>().SuggestionParent.activeSelf == false) 
+                {
+                    LoseGame();
+                }
             }
         }
         else
@@ -722,10 +727,10 @@ public class SingleGameManager : MonoBehaviour
                     playerDist = Mathf.Abs(Me.playerObj.transform.position.x - Enemy.playerObj.transform.position.x);
                 }
 
-                if (playerDist <= Conv.LightDistFunc(Me))
+                if (playerDist <= Conv.LightDistFunc(Me) && !Me.stunned)
                 {
                     Me.buttons.BtnLight.SetActive(true);
-                    Me.buttons.BtnLight.GetComponentsInChildren<Text>()[0].text = "LIGHT\n" + ((int)(Me.lightChance * 100)).ToString() + " %";
+                    Me.buttons.BtnLight.GetComponentsInChildren<Text>()[0].text = LocalisationSystem.GetLocalisedValue("light") + "\n" + ((int)(Me.lightChance * 100)).ToString() + " %";
                     Me.buttons.BtnLight.GetComponentsInChildren<Text>()[1].text = ((int)(Me.staminaPerMove * Me.staminaLightMult)).ToString();
                 }
                 else
@@ -733,10 +738,10 @@ public class SingleGameManager : MonoBehaviour
                     Me.buttons.BtnLight.SetActive(false);
                 }
 
-                if (playerDist <= Conv.MediumDistFunc(Me))
+                if (playerDist <= Conv.MediumDistFunc(Me) && !Me.stunned)
                 {
                     Me.buttons.BtnMedium.SetActive(true);
-                    Me.buttons.BtnMedium.GetComponentsInChildren<Text>()[0].text = "MEDIUM\n" + ((int)(Me.mediumChance * 100)).ToString() + " %";
+                    Me.buttons.BtnMedium.GetComponentsInChildren<Text>()[0].text = LocalisationSystem.GetLocalisedValue("medium") + "\n" + ((int)(Me.mediumChance * 100)).ToString() + " %";
                     Me.buttons.BtnMedium.GetComponentsInChildren<Text>()[1].text = ((int)(Me.staminaPerMove * Me.staminaMediumMult)).ToString();
                 }
                 else
@@ -747,24 +752,33 @@ public class SingleGameManager : MonoBehaviour
                 if (playerDist <= Me.heavyDist)
                 {
                     Me.buttons.BtnHeavy.SetActive(true);
-                    Me.buttons.BtnHeavy.GetComponentsInChildren<Text>()[0].text = "HEAVY\n" + ((int)(Me.heavyChance * 100)).ToString() + " %";
+                    Me.buttons.BtnHeavy.GetComponentsInChildren<Text>()[0].text = LocalisationSystem.GetLocalisedValue("heavy") + "\n" + ((int)(Me.heavyChance * 100)).ToString() + " %";
                     Me.buttons.BtnHeavy.GetComponentsInChildren<Text>()[1].text = ((int)(Me.staminaPerMove * Me.staminaHeavyMult)).ToString();
 
-                    Me.buttons.BtnMoveLeft.SetActive(true);
-                    Me.buttons.BtnMoveLeft.GetComponentInChildren<Text>().text = Me.staminaPerMove.ToString();
+                    if (!Me.stunned) 
+                    {
+                        Me.buttons.BtnMoveLeft.SetActive(true);
+                        Me.buttons.BtnMoveLeft.GetComponentInChildren<Text>().text = Me.staminaPerMove.ToString();
+                    }
+
 
                     Me.buttons.BtnMoveRight.SetActive(false);
 
                 }
                 else
                 {
+
                     Me.buttons.BtnHeavy.SetActive(false);
 
-                    Me.buttons.BtnMoveLeft.SetActive(true);
-                    Me.buttons.BtnMoveLeft.GetComponentInChildren<Text>().text = Me.staminaPerMove.ToString();
+                    if (!Me.stunned) 
+                    {
+                        Me.buttons.BtnMoveLeft.SetActive(true);
+                        Me.buttons.BtnMoveLeft.GetComponentInChildren<Text>().text = Me.staminaPerMove.ToString();
 
-                    Me.buttons.BtnMoveRight.SetActive(true);
-                    Me.buttons.BtnMoveRight.GetComponentInChildren<Text>().text = Me.staminaPerMove.ToString();
+                        Me.buttons.BtnMoveRight.SetActive(true);
+                        Me.buttons.BtnMoveRight.GetComponentInChildren<Text>().text = Me.staminaPerMove.ToString();
+                    }
+
                 }
 
                 if (Me.stunned)
@@ -778,7 +792,7 @@ public class SingleGameManager : MonoBehaviour
     }
 
 
-    public bool GameOver;
+    public bool GameOver = true;
 
     public int SceneToLoad;
 

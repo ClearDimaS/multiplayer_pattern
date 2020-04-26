@@ -23,12 +23,12 @@ public class GetFightResults : MonoBehaviour
         {
             if (text.name == "ExpGained")
             {
-                text.text = "Expirience: +" + DataController.GetValue<int>("expAdded");
+                text.text = LocalisationSystem.GetLocalisedValue("exp") + ": +" + DataController.GetValue<int>("expAdded");
             }
 
             if (text.name == "BreadGained")
             {
-                text.text = "Bread: +" + DataController.GetValue<int>("breadAdded");
+                text.text = LocalisationSystem.GetLocalisedValue("bread") + ": +" + DataController.GetValue<int>("breadAdded");
                 if (loadingscreen != null)
                 {
                     loadingscreen.SetActive(false);
@@ -48,7 +48,7 @@ public class GetFightResults : MonoBehaviour
 
             if (text.name == "RatingChange")
             {
-                text.text = "Raiting: " + SymbolPlusOrMinus + " " + Math.Abs(DataController.GetValue<int>("RatingChange"));
+                text.text = LocalisationSystem.GetLocalisedValue("rating") + ": " + SymbolPlusOrMinus + " " + Math.Abs(DataController.GetValue<int>("RatingChange"));
             }
         }
     }

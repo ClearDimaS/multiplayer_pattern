@@ -166,7 +166,7 @@ public class Mechanics
 
             int tempText;
 
-            Debug.Log(player.regBonus +  "    "  +  player.curseDebuff + "sssssssssssssssssssssssssssssssssss");
+            //Debug.Log(player.regBonus +  "    "  +  player.curseDebuff + "sssssssssssssssssssssssssssssssssss");
             temp = (int)(((player.regen * 0.3f) + player.baseHealthForSleep) * (1 + player.regBonus - 2 * player.curseDebuff));
 
             if (player.animation.Animator != null)
@@ -866,7 +866,7 @@ public class Mechanics
         {
             float blockChanceTemp;
 
-            Debug.Log("Block chance was: " + player1.blockModif + "  +  " + Convert.BlockFunc(player1) + "  -   " + Convert.BlockResistFunc(player2) + "  -  " + player1.fireDebuff + "   *   " + AttackTypeMult);
+            //Debug.Log("Block chance was: " + player1.blockModif + "  +  " + Convert.BlockFunc(player1) + "  -   " + Convert.BlockResistFunc(player2) + "  -  " + player1.fireDebuff + "   *   " + AttackTypeMult);
 
             blockChanceTemp = (float)Math.Round((player1.blockModif + Convert.BlockFunc(player1) - Convert.BlockResistFunc(player2) - player1.fireDebuff) * AttackTypeMult, 2);
 

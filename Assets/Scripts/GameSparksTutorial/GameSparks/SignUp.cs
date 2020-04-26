@@ -43,25 +43,25 @@ namespace GameSparksTutorials
         {
             if (!IsValidEmail.IsValidmail(email.text))
             {
-                ErrorOutPut("Invalid Email");
+                ErrorOutPut(LocalisationSystem.GetLocalisedValue("email_error"));
             }
             else
             {
                 if (username.text.Length < 4 || !CreateRGX(username.text).IsMatch(username.text))
                 {
-                    ErrorOutPut("Username should contain more than 4 symbols: a-z or A-Z or numbers");
+                    ErrorOutPut(LocalisationSystem.GetLocalisedValue("username_error"));
                 }
                 else 
                 {
                     if (displayName.text.Length < 4 || !CreateRGX(displayName.text).IsMatch(displayName.text))
                     {
-                        ErrorOutPut("Displayname should contain more than 4 symbols: a-z or A-Z or numbers");
+                        ErrorOutPut(LocalisationSystem.GetLocalisedValue("displayname_error"));
                     }
                     else 
                     {
                         if (password.text.Length < 8 || !CreateRGX(password.text).IsMatch(password.text))
                         {
-                            ErrorOutPut("Password should be at least 8 letters or numbers");
+                            ErrorOutPut(LocalisationSystem.GetLocalisedValue("password_error"));
                         }
                         else 
                         {
@@ -88,7 +88,7 @@ namespace GameSparksTutorials
             }
             else 
             {
-                ErrorOutPut("Username is busy or a Network error has occured");
+                ErrorOutPut(LocalisationSystem.GetLocalisedValue("signup_error"));
             }
         }
     }
