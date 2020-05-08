@@ -55,7 +55,7 @@ public class EnemyChooser : MonoBehaviour
 
     void ShowEnemyChooserPanel() 
     {
-        if (DataController.GetValue<int>("CurrentBossNumber") == 0)
+        if (DataController.GetValue<int>("CurrentBossNumber") >= 5)
         {
             //Debug.Log("Im here");
 

@@ -20,7 +20,7 @@ namespace GameSparksTutorials
         ///<summary>
         ///Activate the PopUp and set the button action and text.
         ///</summary>
-        ///<param name="action">Action that will ve triggered when the button is pressed.</param>
+        ///<param name="action">Action that will be triggered when the button is pressed.</param>
         ///<param name="text">Button text.</param>
         ///<param name="background">0 = Neutral blue \n1 = Default positive green \n2 = Negative red</param>
         public static void ActivatePopUp(UnityAction action, string text)

@@ -7,7 +7,7 @@ using System.IO;
 
 public class LocalisationScript : MonoBehaviour
 {
-    List<string> Languages = new List<string> { "Eng", "Rus", "Chin" };
+    List<string> Languages = new List<string> { "Eng", "Rus", "Chin", "Deutch", "French"  };
 
     void SetTexts() 
     {
@@ -15,6 +15,12 @@ public class LocalisationScript : MonoBehaviour
 
         string value = LocalisationSystem.GetLocalisedValue(key);
         textField.text = value;
+
+        textField.resizeTextForBestFit = true;
+
+        textField.resizeTextForBestFit = false;
+
+        textField.fontSize -= 10;
     }
 
     public Image Flag;
@@ -33,6 +39,12 @@ public class LocalisationScript : MonoBehaviour
                 break;
             case 2:
                 LocalisationSystem.language = LocalisationSystem.Language.Chinese;
+                break;
+            case 3:
+                LocalisationSystem.language = LocalisationSystem.Language.Deutch;
+                break;
+            case 4:
+                LocalisationSystem.language = LocalisationSystem.Language.French;
                 break;
         }
 

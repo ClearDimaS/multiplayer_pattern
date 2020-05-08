@@ -50,9 +50,9 @@ public class MagicScript : MonoBehaviour
 
     List<GameObject> AnimationList;
 
-    List<string> MagicDescriptions = new List<string> { "Deals Damage and has a chance to stun the target.", "Deals Damage and prevents all healling effects.",
-        "Deals Damage and decreases enemy armour and damage resistance.",
-        "Deals Damage and has a chance to Deal a 2 x magic Damage." };
+    List<string> MagicDescriptions = new List<string> { "ice_description", "curse_description",
+        "fire_description",
+        "bolt_description" };
 
     private void Start()
     {
@@ -66,11 +66,11 @@ public class MagicScript : MonoBehaviour
         DataController.SaveValue("EquippedMagicMine", MagicNames[i]);
         Debug.Log(MagicNames[i]);
 
-        MagicDescription0.text = MagicNames[i] + " Magic - Eqquipped! \n";
-        MagicDescription1.text = MagicNames[i] + " Magic - Eqquipped! \n";
-        MagicDescription2.text = MagicDescriptions[i] + " \n" + " \n";
-        MagicDescription3.text =  "The basic magic damage is calculated as a 1.59 times of Sleep stat. \n" + 
-            "Maximux chance of a debuff is 24 %. \n You can use Magic only if your Sleep stat is higher than 16.";
+        MagicDescription0.text = LocalisationSystem.GetLocalisedValue(MagicNames[i]) + LocalisationSystem.GetLocalisedValue("magic_text1") + " \n";
+        MagicDescription1.text = LocalisationSystem.GetLocalisedValue(MagicNames[i]) + LocalisationSystem.GetLocalisedValue("magic_text1") + " \n";
+        MagicDescription2.text = LocalisationSystem.GetLocalisedValue(MagicDescriptions[i]) + " \n" + " \n";
+        MagicDescription3.text = LocalisationSystem.GetLocalisedValue("magic_text2") + " \n" + //The basic magic damage is calculated as a 1.59 times of Sleep stat.
+           LocalisationSystem.GetLocalisedValue("magic_text3") + " \n" + LocalisationSystem.GetLocalisedValue("magic_text4"); // Maximux chance of a debuff is 24 %.         " You can use Magic only if your Sleep stat is higher than 16."
         Debug.Log("Equipped magic: " + MagicNames[i] +  "(" + DataController.GetValue<string>("EquippedMagicMine") + ")" );
     }
 

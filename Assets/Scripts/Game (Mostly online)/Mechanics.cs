@@ -58,13 +58,15 @@ public class Mechanics
 
         public float moveMult = 1.0f;
 
-        public float staminaMagic = 0.25f;
+        public float moveStamMult = 0.3f;
+
+        public float staminaMagic = 0.35f;
         public float magicDebuffMult = 0.0f;
 
         public int blockStam = 5;
 
         public int baseStamForSleep = 40;
-        public int baseStamForSwap = 8;
+        public int baseStamForSwap = 1;
 
         public float heavyDist = 5.0f;
 
@@ -136,7 +138,7 @@ public class Mechanics
 
             //Debug.Log("Curse debuff, so health decreased: " + player.curseDebuff + "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
 
-            temp = (int)(player.sleep * 1.5f) + player.baseStamForSleep;
+            temp = (int)(player.sleep * 0.5f) + player.baseStamForSleep;
 
             if (player.animation.Animator != null)
             {
@@ -338,14 +340,14 @@ public class Mechanics
             multToReturn = 1;
             if (blockChance > RandVar1)
             {
-                dispText += "Blocked ";
+                dispText = "Blocked";
                 Debug.Log(dispText);
                 multToReturn *= player2.blockMult;
                 boolName = "PlayerBlock";
             }
             else if (player2.missModif > RandVar2)
             {
-                dispText += "Miss ";
+                dispText = "Miss";
                 Debug.Log(dispText);
                 multToReturn = 0;
                 boolName = "PlayerGetMiss";
@@ -354,21 +356,21 @@ public class Mechanics
             {
                 if (player1.critModif > RandVar3)
                 {
-                    dispText += "Crit ";
+                    dispText = "Crit";
                     Debug.Log(dispText);
                     multToReturn *= player1.critMult;
                     boolName = "PlayerGetCrit";
                 }
                 if (player1.bashModif > RandVar4)
                 {
-                    dispText += "Bashed ";
+                    dispText = "Bashed";
                     Debug.Log(dispText);
                     player2.bashed = true;
                     boolName = "PlayerGetBash";
                 }
                 if (player1.stunModif > RandVar5)
                 {
-                    dispText += "Stunned";
+                    dispText = "Stunned";
                     Debug.Log(dispText);
                     player2.stunned = true;
                     boolName = "PlayerGetStun";
@@ -386,7 +388,7 @@ public class Mechanics
 
             // player1.animation.instantiateText("", player2.playerObj.transform.position, boolName, player2.playerObj.transform.position, player2.iAmLeft, true);
 
-            player2.animation.instantiateText("", new Vector3(0, 0, 0), dispText, player2.playerObj.transform.position, player2.iAmLeft, true, false, false, true, false);
+            player2.animation.instantiateText("", new Vector3(0, 0, 0), LocalisationSystem.GetLocalisedValue(dispText), player2.playerObj.transform.position, player2.iAmLeft, true, false, false, true, false);
 
             player2.animation.setAnimatorBoolTrue(boolName);
 
@@ -457,7 +459,7 @@ public class Mechanics
         float Agility2 = 0.031f;
         float Agility3 = 0.051f;
         float Agility4 = 0.131f;
-        float Agility5 = 0.0f;
+        float Agility5 = 0.08f;
         #endregion
 
         #region Power
@@ -465,7 +467,7 @@ public class Mechanics
         //Using double handed weapons
         float Power3 = 0.071f;
         float Power4 = 0.051f;
-        float Power5 = 0.81f;
+        float Power5 = 0.18f;
         #endregion
 
         #region Strength
@@ -512,53 +514,53 @@ public class Mechanics
 
         public void SetTexts() 
         {
-            AttackTexts = new List<string> { " + " + Attack1 + " Damage", 
-                " + " + (int)(Attack2 * 100) + " % To Damage to each Light attack ", 
-                " + " + (int)(Attack3 * 100) + " % To Damage to each Medium attack", 
-                " + " + (int)(Attack4 * 100) + " % To Damage to each Heavy attack ", 
-                " Now if Your Current HP is below 20 % you deal " + (int)(Attack5 * 100) + " % more damage " };
+            AttackTexts = new List<string> { " + " + Attack1 + LocalisationSystem.GetLocalisedValue("attack1"), // Damage 
+                " + " + (int)(Attack2 * 100) + LocalisationSystem.GetLocalisedValue("attack2"), 
+                " + " + (int)(Attack3 * 100) + LocalisationSystem.GetLocalisedValue("attack3"), 
+                " + " + (int)(Attack4 * 100) + LocalisationSystem.GetLocalisedValue("attack4"),
+                LocalisationSystem.GetLocalisedValue("attack51") + (int)(Attack5 * 100) + LocalisationSystem.GetLocalisedValue("attack52") };
 
-            AgilityTexts = new List<string> { " + " + (int)(Agility1 * 100.0f) + " % To Crit chance",
-                " + " + (int)(Agility2 * 100.0f) + " % To Block chance ",
-                " + " + (int)(Agility3 * 100.0f) + " % To Dodge chance",
-                " + " + (int)(Agility4 * 100.0f) + " % To all Melee Damage ",
-                (int)(Agility5 * 100.0f) + " % less of Damage pass through block " };
+            AgilityTexts = new List<string> { " + " + (int)(Agility1 * 100.0f) + LocalisationSystem.GetLocalisedValue("agility1"),
+                " + " + (int)(Agility2 * 100.0f) + LocalisationSystem.GetLocalisedValue("agility2"),
+                " + " + (int)(Agility3 * 100.0f) + LocalisationSystem.GetLocalisedValue("agility3"),
+                " + " + (int)(Agility4 * 100.0f) + LocalisationSystem.GetLocalisedValue("agility4"),
+                (int)(Agility5 * 100.0f) + LocalisationSystem.GetLocalisedValue("agility5") };
 
-            PowerTexts = new List<string> { " + " + (int)( Power1 * 100.0f) + " % To Damage reduction",
-                " You can use Double Handed weapons ",
-                " + " + (int)( Power3 * 100.0f) + " % To Damage reduction ",
-                " - " + (int)( Power4 * 100.0f) + " % to enemy magic ",
-                " + " + (int)( Power5 * 100.0f) + " % Damage through enemy block  " };
+            PowerTexts = new List<string> { " + " + (int)( Power1 * 100.0f) + LocalisationSystem.GetLocalisedValue("power1"),
+                LocalisationSystem.GetLocalisedValue("power2"),
+                " + " + (int)( Power3 * 100.0f) + LocalisationSystem.GetLocalisedValue("power3"),
+                " - " + (int)( Power4 * 100.0f) + LocalisationSystem.GetLocalisedValue("power4"),
+                " + " + (int)( Power5 * 100.0f) + LocalisationSystem.GetLocalisedValue("power5") };
 
-            StrengthTexts = new List<string> { " + " +  Strength1 + " Total HP ",
-                " Health regeneration effects get " + (int)(Strength2 * 100.0f) + " % bonus",
-                " Your Stun and Bash chances get + " + (int)(Strength3 * 100.0f) + " %",
-                (int)(Strength4 * 100.0f) + " % Stamina use reduction to all Melee attacks ",
-                " + " + (int)(Strength5 * 100.0f) + " % to Total HP" };
+            StrengthTexts = new List<string> { " + " +  Strength1 + LocalisationSystem.GetLocalisedValue("strength1"),
+                LocalisationSystem.GetLocalisedValue("strength21") + (int)(Strength2 * 100.0f) + LocalisationSystem.GetLocalisedValue("strength22"),
+                LocalisationSystem.GetLocalisedValue("strength3") + "+ " + (int)(Strength3 * 100.0f) + " %",
+                (int)(Strength4 * 100.0f) + LocalisationSystem.GetLocalisedValue("strength4"),
+                " + " + (int)(Strength5 * 100.0f) + LocalisationSystem.GetLocalisedValue("strength5") };
 
-            EnduranceTexts = new List<string> { " + " + Endurance1  + " to Total Stamina",
-                (int)(Endurance2 * 100.0f) + " % less Stamina for moving ",
-                " Block needs " + (int)(Endurance3 * 100.0f) + " % less Stamina ",
-                " + " + (int)(Endurance4 * 100.0f) + " % to Total Stamina",
-                "" + (int)(Endurance5 * 100.0f) + " % Stamina use reduction to magic" };
+            EnduranceTexts = new List<string> { " + " + Endurance1  + LocalisationSystem.GetLocalisedValue("endurance1"),
+                (int)(Endurance2 * 100.0f) + LocalisationSystem.GetLocalisedValue("endurance2"),
+                LocalisationSystem.GetLocalisedValue("endurance31") + (int)(Endurance3 * 100.0f) + LocalisationSystem.GetLocalisedValue("endurance32"),
+                " + " + (int)(Endurance4 * 100.0f) + LocalisationSystem.GetLocalisedValue("endurance4"),
+                (int)(Endurance5 * 100.0f) + LocalisationSystem.GetLocalisedValue("endurance5") };
 
-            SpeedTexts = new List<string> { " + " + (int)(Speed1 * 100.0f) + " % to Total movement distance",
-                " + " + (int)(Speed2 * 100.0f) + " % To Crit Damage",
-                " Enemy Bash, Stun Chances get - " + (int)(Speed3 * 100.0f)  + " % ",
-                " + " + (int)(Speed4 * 100.0f) + " % Crit Damage Chance",
-                " Enemy Crit and Dodge Chances get - " + (int)(Speed5 * 100.0f)  + " % " };
+            SpeedTexts = new List<string> { " + " + (int)(Speed1 * 100.0f) + LocalisationSystem.GetLocalisedValue("speed1"),
+                " + " + (int)(Speed2 * 100.0f) + LocalisationSystem.GetLocalisedValue("speed2"),
+                LocalisationSystem.GetLocalisedValue("speed3") + "- " + (int)(Speed3 * 100.0f)  + " % ",
+                " + " + (int)(Speed4 * 100.0f) + LocalisationSystem.GetLocalisedValue("speed4"),
+                LocalisationSystem.GetLocalisedValue("speed5") + " - " + (int)(Speed5 * 100.0f)  + " % " };
 
-            SleepTexts = new List<string> { " + " + Sleep1 + " To Stamina regeneration per sleep",
-                " You can use Magic! ",
-                " + " + Sleep3 + " Stamina each turn",
-                " + " + (int)(Sleep4 * 100.0f) + " % to magic debuff chance",
-                " + " + (int)(Sleep5 * 100.0f) + " % To magic" };
+            SleepTexts = new List<string> { " + " + Sleep1 + LocalisationSystem.GetLocalisedValue("sleep1"),
+                LocalisationSystem.GetLocalisedValue("sleep2"),
+                " + " + Sleep3 + LocalisationSystem.GetLocalisedValue("sleep3"),
+                " + " + (int)(Sleep4 * 100.0f) + LocalisationSystem.GetLocalisedValue("sleep4"),
+                " + " + (int)(Sleep5 * 100.0f) + LocalisationSystem.GetLocalisedValue("sleep5") };
 
-            RegenTexts = new List<string> { " + " + Regen1 + " To Health regeneration per sleep",
-                " enemy block gets - " + (int)(Regen2 * 100.0f) + " % chance ",
-                " + " + Regen3 + " HP each turn",
-                " - " + (int)(Regen4 * 100.0f) + "  % to enemy magic damage",
-                " + " + (int)(Regen5 * 100.0f) + " % To health regeneration effets" };
+            RegenTexts = new List<string> { " + " + Regen1 + LocalisationSystem.GetLocalisedValue("regen1"),
+                LocalisationSystem.GetLocalisedValue("regen21") + " - " + (int)(Regen2 * 100.0f) +LocalisationSystem.GetLocalisedValue("regen22"),
+                " + " + Regen3 + LocalisationSystem.GetLocalisedValue("regen3"),
+                " - " + (int)(Regen4 * 100.0f) + LocalisationSystem.GetLocalisedValue("regen4"),
+                " + " + (int)(Regen5 * 100.0f) + LocalisationSystem.GetLocalisedValue("regen5") };
         }
 
 
@@ -842,7 +844,7 @@ public class Mechanics
             //Debug.Log("Magic damage: "  + Convert.MagicDmgFunc(player1) / Helper.debuffDmgMult);
         }
 
-        player1.animation.instantiateText("", new Vector3(0, 0, 0), player1.magicEquipped, player2.playerObj.transform.position, player2.iAmLeft, false, false, true, true, false);
+        player1.animation.instantiateText("", new Vector3(0, 0, 0), LocalisationSystem.GetLocalisedValue(player1.magicEquipped), player2.playerObj.transform.position, player2.iAmLeft, false, false, true, true, false);
 
         player1.animation.instantiateText(player1.magicEquipped + "Parent", player2.playerObj.transform.position, "- " + Damage.ToString(), player2.playerObj.transform.position, player2.iAmLeft, false, false, true, false, false);
 

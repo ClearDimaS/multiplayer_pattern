@@ -2,19 +2,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DataController = GameSparksTutorials.DataController;
-using GameObject = UnityEngine.GameObject;
-using MonoBehaviour = UnityEngine.MonoBehaviour;
-using Text = UnityEngine.UI.Text;
+using GameSparksTutorials;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class GetFightResults : MonoBehaviour
 {
     private List<Text> TxtOutPut;
     public GameObject loadingscreen;
 
+    public static bool invokeOnce;
     void Start()
     {
-        Invoke("Changes", 1);
+        Invoke("Changes", 1.0f);
     }
     private void Changes()
     {

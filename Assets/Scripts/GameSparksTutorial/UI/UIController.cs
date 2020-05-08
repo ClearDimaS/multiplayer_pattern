@@ -7,7 +7,9 @@ namespace GameSparksTutorials
     { 
         Login,
         MainMenu,
-        SignUp
+        SignUp,
+        ResetPassword,
+        ConfirmResetPassword,
     }
 
 
@@ -89,6 +91,8 @@ namespace GameSparksTutorials
             panels.Add(UI_Element.Login, Instance.transform.Find("Login").gameObject);
             panels.Add(UI_Element.MainMenu, Instance.transform.Find("MainMenu").gameObject);
             panels.Add(UI_Element.SignUp, Instance.transform.Find("SignUp").gameObject);
+            panels.Add(UI_Element.ResetPassword, Instance.transform.Find("ResetPassword").gameObject);
+            panels.Add(UI_Element.ConfirmResetPassword, Instance.transform.Find("ConfirmResetPassword").gameObject);
         }
 
 

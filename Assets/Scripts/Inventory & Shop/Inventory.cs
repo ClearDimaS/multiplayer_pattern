@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using UnityEngine;
+using GameSparksTutorials;
 
 public class Inventory : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class Inventory : MonoBehaviour
             Debug.Log("More than one instance of Inventory found!");
             return;
         }
+
+        DataController.SaveValue("GSNotSynced" + DataController.GetValue<string>("username"), 22);
+
         instance = this;
     }
 
@@ -24,7 +28,7 @@ public class Inventory : MonoBehaviour
     public delegate void OnItemChanhged();
     public OnItemChanhged onItemChanhgedCallback;
 
-    public int space = 40;
+    public int space = 72;
 
     public List<Item> items = new List<Item>();
 

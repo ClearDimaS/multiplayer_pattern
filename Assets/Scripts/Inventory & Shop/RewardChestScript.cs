@@ -19,6 +19,11 @@ public class RewardChestScript : MonoBehaviour
     }
 
     #endregion
+
+    public Text Infotxt1;
+
+    public Text Infotxt2;
+
     public Text[] WinsForChestTexts;
 
     public GameObject Chest;
@@ -51,11 +56,16 @@ public class RewardChestScript : MonoBehaviour
 
     public void UpdTextOfWinQuantity() 
     {
-        PicOfReward.color = Color.clear;
-
         BtnInteractable = true;
 
         ChestPanel.SetActive(true);
+
+        PicOfReward.color = Color.clear;
+
+        Infotxt1.text = LocalisationSystem.GetLocalisedValue("chest_text1") + "\n" + LocalisationSystem.GetLocalisedValue("chest_text2") + "\n" + LocalisationSystem.GetLocalisedValue("chest_text3") + "\n" + "    " + "/ 3";
+
+        Infotxt2.text = LocalisationSystem.GetLocalisedValue("chest_text1") + "\n" + LocalisationSystem.GetLocalisedValue("chest_text2") + "\n" + LocalisationSystem.GetLocalisedValue("chest_text3") + "\n" + "    " + "/ 3";
+
 
         if (DataController.GetValue<int>("WinsForChest") >= 3 && firstTime)
         {
@@ -113,6 +123,21 @@ public class RewardChestScript : MonoBehaviour
         {
             if (DataController.GetValue<int>("WinsForChest") >= 3)
             {
+                GameObject warning;
+
+                if (Inventory.instance.items.Count >= Inventory.instance.space - 8) 
+                {
+                    warning = WarningScript.instance.warning;
+
+                    warning.SetActive(true);
+
+                    warning.GetComponentsInChildren<Text>()[0].text = LocalisationSystem.GetLocalisedValue("buyWarning4");
+
+                    warning.GetComponentsInChildren<Text>()[1].text = LocalisationSystem.GetLocalisedValue("buyWarning4");
+
+                    return;
+                }
+
                 if (!ifAdd) 
                 {
                     MoreButton.SetActive(true);

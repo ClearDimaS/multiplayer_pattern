@@ -35,7 +35,10 @@ namespace GameSparksTutorials
         {
             if (DataController.GetValue<string>("LastValidusername") != username) 
             {
-                Login(DataController.GetValue<string>("LastValidusername"), DataController.GetValue<string>("LastValidPassword"), null);
+                if (DataController.GetValue<string>("LastValidusername") != "") 
+                {
+                    Login(DataController.GetValue<string>("LastValidusername"), DataController.GetValue<string>("LastValidPassword"), null);
+                }
             } 
 
             DataController.SaveValue("username", username);
@@ -82,9 +85,9 @@ namespace GameSparksTutorials
 
                     LeaderBoardsScript.Ratings.Add(gd.GetLong("Rating"));
 
-                    Debug.Log(gd.GetString("userName"));
+                    //Debug.Log(gd.GetString("userName"));
 
-                    Debug.Log(gd.GetLong("Rating"));
+                    //Debug.Log(gd.GetLong("Rating"));
                 }
             });
 
@@ -167,10 +170,14 @@ namespace GameSparksTutorials
                                 {
                                     DataController.SaveValue(Name + TypeItem + "ammount", 1);
                                 }
-                                else 
+                                else
                                 {
                                     DataController.SaveValue(Name + TypeItem + "ammount", 0);
                                 }
+                            }
+                            else 
+                            {
+                                DataController.SaveValue(Name + TypeItem + "ammount", 0);
                             }
                         }
                     }
@@ -184,7 +191,7 @@ namespace GameSparksTutorials
                                 //Debug.Log(vg.GetString("name"));
                             }
                         }
-                        Debug.Log(vg.GetString("name"));
+                        //Debug.Log(vg.GetString("name"));
                         DataController.SaveValue(vg.GetString("name") + "Price", (int)vg.GetGSData("currencyCosts").GetInt("Bread"));
                         DataController.SaveValue(vg.GetString("name") + "SellPrice", (int)vg.GetGSData("currencyCosts").GetInt("BreadPrice"));
                     }
@@ -221,15 +228,20 @@ namespace GameSparksTutorials
                     DataController.SaveValue("GSNotSynced" + username, 0);
                     Debug.Log("Player authenticated! \n Name:" + response.DisplayName + response.ScriptData.JSON);// + response.ScriptData);//.ScriptData.JSON.ToString());
 
-                    EventManager.TriggerEvent(eventName, response.DisplayName);
 
-                    IsUserLoggedIn = true;
+                    IsUserLoggedIn = false;
+
+                    EventManager.TriggerEvent(eventName, response.DisplayName);
 
                     DataController.SaveValue("LastValidPassword" + username, password);
 
                     DataController.SaveValue("LastValidusername", username);
                 } else 
                 {
+                    ResetPassword.instance.Warning.SetActive(true);
+
+                    PopUpMessage.ActivatePopUp(delegate { UIController.SetActivePanel(UI_Element.Login); }, LocalisationSystem.GetLocalisedValue("loginerror1"));
+                    
                     Debug.Log("Error authenticating player.../n" + response.Errors.JSON.ToString());
 
                     EventManager.TriggerEvent(eventName, "");
@@ -322,6 +334,8 @@ namespace GameSparksTutorials
         /// <param name="eventName"></param>
         public static void SignUp(string username, string displayName, string password, string email, string eventName) 
         {
+            Debug.Log("Signing up");
+
             Debug.Log("Sign up...");
 
             if (!IsUserLoggedIn)

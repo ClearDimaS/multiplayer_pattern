@@ -447,6 +447,8 @@ public class TheGameManager : MonoBehaviour
         player.moveFarer = false;
         player.moveCloser = false;
 
+        player.moveStamMult = Helper.moveStamMult;
+
         player.moveMult = Helper.moveMult;
 
         player.health = Conv.TtlHealth(player);
@@ -681,6 +683,8 @@ public class TheGameManager : MonoBehaviour
                 player1.buttons.BtnsPlace.SetActive(false);
 
                 player2.health = Points.Plus(player2.health, Conv.HealthRestoreSwap(player2), player2.maxHealth);
+
+                player2.stamina = Points.Plus(player2.stamina, Conv.StaminaRestoreSwap(player2), player2.maxStamina);
             }
             else
             if (player2.myTurn)
@@ -690,6 +694,8 @@ public class TheGameManager : MonoBehaviour
                 player1.turnTimer = TimeForTurn;
 
                 player1.health = Points.Plus(player1.health, Conv.HealthRestoreSwap(player1), player1.maxHealth);
+
+                player1.stamina = Points.Plus(player1.stamina, Conv.StaminaRestoreSwap(player1), player1.maxStamina);
             }
 
             player1.myTurn = !player1.myTurn;
@@ -792,7 +798,7 @@ public class TheGameManager : MonoBehaviour
                     playerDist = Mathf.Abs(Me.playerObj.transform.position.x - Enemy.playerObj.transform.position.x);
                 }
 
-                if (playerDist <= Conv.LightDistFunc(Me))
+                if (playerDist <= Conv.LightDistFunc(Me) && !Me.stunned)
                 {
                     Me.buttons.BtnLight.SetActive(true);
                     Me.buttons.BtnLight.GetComponentsInChildren<Text>()[0].text = LocalisationSystem.GetLocalisedValue("light") + "\n" + ((int)(Me.lightChance * 100)).ToString() + " %";
@@ -803,7 +809,7 @@ public class TheGameManager : MonoBehaviour
                     Me.buttons.BtnLight.SetActive(false);
                 }
 
-                if (playerDist <= Conv.MediumDistFunc(Me))
+                if (playerDist <= Conv.MediumDistFunc(Me) && !Me.stunned)
                 {
                     Me.buttons.BtnMedium.SetActive(true);
                     Me.buttons.BtnMedium.GetComponentsInChildren<Text>()[0].text = LocalisationSystem.GetLocalisedValue("medium") + "\n" + ((int)(Me.mediumChance * 100)).ToString() + " %";

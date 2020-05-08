@@ -452,6 +452,8 @@ public class SingleGameManager : MonoBehaviour
 
         player.moveMult = Helper.moveMult;
 
+        player.moveStamMult = Helper.moveStamMult;
+
         player.health = Conv.TtlHealth(player);
         player.maxHealth = Conv.TtlHealth(player);
         player.regBonus = Helper.regBonus;
@@ -643,6 +645,8 @@ public class SingleGameManager : MonoBehaviour
                 player1.buttons.BtnsPlace.SetActive(false);
 
                 player2.health = Points.Plus(player2.health, Conv.HealthRestoreSwap(player2), player2.maxHealth);
+
+                player2.stamina = Points.Plus(player2.stamina, Conv.StaminaRestoreSwap(player2), player2.maxStamina);
             }
             else
             if (player2.myTurn)
@@ -652,6 +656,8 @@ public class SingleGameManager : MonoBehaviour
                 player1.turnTimer = TimeForTurn;
 
                 player1.health = Points.Plus(player1.health, Conv.HealthRestoreSwap(player1), player1.maxHealth);
+
+                player1.stamina = Points.Plus(player1.stamina, Conv.StaminaRestoreSwap(player1), player1.maxStamina);
             }
 
             player1.myTurn = !player1.myTurn;
@@ -827,6 +833,7 @@ public class SingleGameManager : MonoBehaviour
             {
                 DataController.SaveValue("CurrentBossNumber", DataController.GetValue<int>("CurrentBossNumber") + 1);
             }
+
             WinAndLoseHandler.WinSingle();
 
             GameOver = true;

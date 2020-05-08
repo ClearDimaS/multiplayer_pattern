@@ -18,6 +18,7 @@ public class ShowPlayerStats : MonoBehaviour
     int CurIncrStat;
     string StatsName;
     public GameObject StatsBars;
+    public GameObject StatsInf;
     UnityEngine.UI.Image[] SpecialsList;
     Text title;
     public static bool WasChanged = false;
@@ -71,6 +72,7 @@ public class ShowPlayerStats : MonoBehaviour
 
         //Debug.Log(DataController.GetValue<int>("SkillPoints") + "   " + DataController.GetValue<int>("SpentPoints") + "   " + DataController.GetValue<int>("AllPts"));
         //CharacterInfo = GameObject.FindGameObjectsWithTag("PlayerInfo")[0];
+        StatsInf.SetActive(false);
         if (InOrOut == "In")
         {
             DataController.SaveValue("SpentPoints", 0);
@@ -129,7 +131,7 @@ public class ShowPlayerStats : MonoBehaviour
             }
             else
             {
-                CharacterInfo.transform.position = new Vector3(2, 1.7f, -2);
+                CharacterInfo.transform.position = new Vector3(1, 1.7f, -2);
             }
         }
         else
@@ -153,42 +155,42 @@ public class ShowPlayerStats : MonoBehaviour
             DataController.DeleteValue("AllPts");
         }
 
-        Debug.Log(DataController.GetValue<int>("SkillPoints") + "   " + DataController.GetValue<int>("SpentPoints") + "   " + DataController.GetValue<int>("AllPts"));
+        //Debug.Log(DataController.GetValue<int>("SkillPoints") + "   " + DataController.GetValue<int>("SpentPoints") + "   " + DataController.GetValue<int>("AllPts"));
     }
 
 
     public void SpendSkillPoints(Text Title)
     {
         DataController.SaveValue("GSNotSynced" + DataController.GetValue<string>("username"), 1);
-        if (Title.text.StartsWith("Attack"))
+        if (Title.name.Contains("Attack"))
         {
             StatsName = "StatsAttack";
         }
-        else if (Title.text.StartsWith("Agility"))
+        else if (Title.name.Contains("Agility"))
         {
             StatsName = "StatsAgility";
         }
-        else if (Title.text.StartsWith("Power"))
+        else if (Title.name.Contains("Power"))
         {
             StatsName = "StatsPower";
         }
-        else if (Title.text.StartsWith("Strength"))
+        else if (Title.name.Contains("Strength"))
         {
             StatsName = "StatsStrength";
         }
-        else if (Title.text.StartsWith("Endurance"))
+        else if (Title.name.Contains("Endurance"))
         {
             StatsName = "StatsEndurance";
         }
-        else if (Title.text.StartsWith("Speed"))
+        else if (Title.name.Contains("Speed"))
         {
             StatsName = "StatsSpeed";
         }
-        else if (Title.text.StartsWith("Sleep"))
+        else if (Title.name.Contains("Sleep"))
         {
             StatsName = "StatsSleep";
         }
-        else if (Title.text.StartsWith("Regen"))
+        else if (Title.name.Contains("Regen"))
         {
             StatsName = "StatsRegen";
         }
@@ -368,7 +370,7 @@ public class ShowPlayerStats : MonoBehaviour
                     {
                         if (DataController.GetValue<string>("EquippedMagic") != "")
                         {
-                            text.text = "magic: " + DataController.GetValue<string>("EquippedMagicMine") + "\n";
+                            text.text = LocalisationSystem.GetLocalisedValue("magic") + " : " + LocalisationSystem.GetLocalisedValue(DataController.GetValue<string>("EquippedMagicMine").ToLower()) + "\n";
                             if (DataController.GetValue<string>("EquippedMagicMine") != "Curse")
                             {
                                 text.text += LocalisationSystem.GetLocalisedValue("Damage") + " : " + Conv.MagicDmgFunc(player) + " + " + (int)(Conv.MagicDmgFunc(player) / Helper.debuffDmgMultCurse) + " x" +

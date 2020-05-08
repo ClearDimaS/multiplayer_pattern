@@ -18,7 +18,7 @@ public class WinAndLoseHandler : MonoBehaviour
     public static int multDifference = 4;
     public static void WinOnline()
     {
-        int RatingReward;
+        int RatingReward = 0;
 
         RatingReward = (DataController.GetValue<int>("Rating") - DataController.GetValue<int>("RatingOther")) / 4;
 
@@ -37,13 +37,23 @@ public class WinAndLoseHandler : MonoBehaviour
 
         DataController.SaveValue("RatingChange", RatingReward);
 
-        DataController.SaveValue("Rating", DataController.GetValue<int>("Rating") + RatingReward);
+        DataController.SaveValue("Rating", DataController.GetValue<int>("Rating") + RatingReward / 2);
 
-        DataController.SaveValue("Exp", DataController.GetValue<int>("Exp") + winExp);
+        int expChange = 0;
 
-        DataController.SaveValue("Bread", DataController.GetValue<int>("Bread") + winBread * multDifference);
+        expChange = winExp;
 
-        Debug.Log("You have just won Online and recieved some exp and bread ");
+        DataController.SaveValue("expAdded", expChange);
+
+        int breadChange = 0;
+
+        breadChange = winBread * multDifference;
+
+        DataController.SaveValue("breadAdded", breadChange / 2);
+
+        DataController.SaveValue("Exp", DataController.GetValue<int>("Exp") + expChange / 2);
+
+        DataController.SaveValue("Bread", DataController.GetValue<int>("Bread") + breadChange / 2);
 
         PostGameActions(true);
     }
@@ -67,11 +77,21 @@ public class WinAndLoseHandler : MonoBehaviour
 
         DataController.SaveValue("RatingChange", RaitingSingleReward);
 
-        DataController.SaveValue("Exp", DataController.GetValue<int>("Exp") + winExp * multDifference);
+        int expChange = 0;
 
-        DataController.SaveValue("Bread", DataController.GetValue<int>("Bread") + winBread);
+        expChange = winExp * multDifference;
 
-        Debug.Log("You have just won Single and recieved some exp and bread ");
+        DataController.SaveValue("expAdded", expChange);
+
+        int breadChange = 0;
+
+        breadChange = winBread;
+
+        DataController.SaveValue("breadAdded", breadChange);
+
+        DataController.SaveValue("Exp", DataController.GetValue<int>("Exp") + expChange);
+
+        DataController.SaveValue("Bread", DataController.GetValue<int>("Bread") + breadChange);
 
         PostGameActions(true);
     }
@@ -79,7 +99,7 @@ public class WinAndLoseHandler : MonoBehaviour
 
     public static void LoseOnline()
     {
-        int RatingReward;
+        int RatingReward = 0;
 
         RatingReward = (DataController.GetValue<int>("Rating") - DataController.GetValue<int>("RatingOther")) / 4;
 
@@ -96,15 +116,25 @@ public class WinAndLoseHandler : MonoBehaviour
             RatingReward = Mathf.Min(Mathf.Abs(RatingReward), 10);
         }
 
-        DataController.SaveValue("RatingChange", -RatingReward);
+        DataController.SaveValue("RatingChange", -RatingReward / 2);
 
-        DataController.SaveValue("Rating", DataController.GetValue<int>("Rating") - RatingReward);
+        DataController.SaveValue("Rating", DataController.GetValue<int>("Rating") - RatingReward / 2);
 
-        DataController.SaveValue("Exp", DataController.GetValue<int>("Exp") + loseExp);
+        int expChange = 0;
 
-        DataController.SaveValue("Bread", DataController.GetValue<int>("Bread") + loseBread * multDifference);
+        expChange = loseExp;
 
-        Debug.Log("You have just lost Online and recieved some exp and bread ");
+        DataController.SaveValue("expAdded", expChange);
+
+        int breadChange = 0;
+
+        breadChange = loseBread * multDifference;
+
+        DataController.SaveValue("breadAdded", breadChange);
+
+        DataController.SaveValue("Exp", DataController.GetValue<int>("Exp") + expChange / 2);
+
+        DataController.SaveValue("Bread", DataController.GetValue<int>("Bread") + breadChange / 2);
 
         PostGameActions(false);
     }
@@ -116,18 +146,28 @@ public class WinAndLoseHandler : MonoBehaviour
 
         DataController.SaveValue("Rating", DataController.GetValue<int>("Rating") - RaitingSingleReward);
 
-        DataController.SaveValue("Exp", DataController.GetValue<int>("Exp") + loseExp * multDifference);
+        int expChange = 0 ;
 
-        DataController.SaveValue("Bread", DataController.GetValue<int>("Bread") + loseBread);
+        expChange = loseExp * multDifference;
 
-        Debug.Log("You have just lost Single and recieved some exp and bread ");
+        DataController.SaveValue("expAdded", expChange);
+
+        int breadChange = 0;
+
+        breadChange = loseBread;
+
+        DataController.SaveValue("breadAdded", breadChange);
+
+        DataController.SaveValue("Exp", DataController.GetValue<int>("Exp") + expChange);
+
+        DataController.SaveValue("Bread", DataController.GetValue<int>("Bread") + breadChange);
 
         PostGameActions(false);
     }
 
     public static void PostGameActions(bool ifWin) 
     {
-        DataController.SaveValue("GSNotSynced" + DataController.GetValue<string>("username"), 1);
+        DataController.SaveValue("GSNotSynced" + DataController.GetValue<string>("username"), 2);
 
         if (ifWin)
         {

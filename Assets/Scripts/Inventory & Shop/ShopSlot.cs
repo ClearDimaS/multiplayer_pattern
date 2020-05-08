@@ -53,7 +53,8 @@ public class ShopSlot : MonoBehaviour
         if (item != null) 
         {
             DisplayText = "";
-            DisplayText += item.name + ": " + DataController.GetValue<string>(item.name + "equipSlot") + "\n";
+            DisplayText += item.name + ": " + LocalisationSystem.GetLocalisedValue(DataController.GetValue<string>(item.name + "equipSlot")) + "\n";
+
             item.ammount = DataController.GetValue<int>(item.name + "ammount");
             ItemInfo.SetActive(true);
             foreach (string ModifierName in EquipmentModifiersList)
@@ -61,7 +62,7 @@ public class ShopSlot : MonoBehaviour
                 ModifierTemp = DataController.GetValue<int>(item.name + ModifierName);
                 if (ModifierTemp > 0)
                 {
-                    DisplayText += ModifierName.Substring(8) + " : + " + ModifierTemp + " %" + "\n";
+                    DisplayText += LocalisationSystem.GetLocalisedValue(ModifierName.Substring(8)) + " : + " + ModifierTemp + " %" + "\n";
                 }
             }
             TextItemInfo.text = DisplayText;
@@ -112,10 +113,9 @@ public class ShopSlot : MonoBehaviour
 
     public void BuyItem()
     {
-        DataController.SaveValue(item.name + "ammount", 0);
         ItemInfo.SetActive(false);
         AffirmWindow.SetActive(true);
-        WindowText.text = "Do u want to buy " + item.name + " ?";        
+        WindowText.text = LocalisationSystem.GetLocalisedValue("buyOrNot") + item.name + " ?";        
     }
 
     public void IfYes() 
@@ -124,13 +124,13 @@ public class ShopSlot : MonoBehaviour
         if (DataController.GetValue<int>(item.name + "ammount") > 0)
         {
             WarningWindow.SetActive(true);
-            WarningText.text = "You have already bought the " + item.name + "!";
+            WarningText.text = LocalisationSystem.GetLocalisedValue("buyWarning1") + item.name + "!";
             allowToBuy = false;
         }
         else if (DataController.GetValue<int>("StatsPowerMine") < 16 && (item.name.Contains("Daggers") || item.name.Contains("Hammer") || item.name.Contains("LongSword"))) 
         {
             WarningWindow.SetActive(true);
-            WarningText.text = "Your Power have to be 16 or more to use double handed weapons!";
+            WarningText.text = LocalisationSystem.GetLocalisedValue("buyWarning2");
         }
         else
         {
@@ -142,10 +142,27 @@ public class ShopSlot : MonoBehaviour
             else 
             {
                 WarningWindow.SetActive(true);
-                WarningText.text = "Not enough Bread!";
+                WarningText.text = LocalisationSystem.GetLocalisedValue("buyWarning3");
             }
 
         }
+
+        GameObject warning;
+
+        if (Inventory.instance.items.Count >= Inventory.instance.space - 8) 
+        {
+            Debug.Log(Inventory.instance.items.Count + "    " + Inventory.instance.space);
+            allowToBuy = false;
+
+            warning = WarningScript.instance.warning;
+
+            warning.SetActive(true);
+
+            warning.GetComponentsInChildren<Text>()[0].text = LocalisationSystem.GetLocalisedValue("buyWarning4");
+
+            warning.GetComponentsInChildren<Text>()[1].text = LocalisationSystem.GetLocalisedValue("buyWarning4");
+        }
+
         if (allowToBuy)
         {
             DataController.SaveValue("GSNotSynced" + DataController.GetValue<string>("username"), 1);

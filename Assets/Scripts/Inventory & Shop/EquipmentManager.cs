@@ -65,79 +65,91 @@ public class EquipmentManager : MonoBehaviour
         //Debug.Log(currentEquipment[7]);
         ShowPlayerStats.WasChanged = true;
         //Debug.Log("Trying to equip" + "" + newItem.name);
+        bool error = false;
 
         int slotIndex = (int)newItem.equipSlot;
-
-        DataController.SaveValue("TotalModifierArmorMine", DataController.GetValue<int>("TotalModifierArmorMine") + newItem.ModifierArmor);
-        DataController.SaveValue("TotalModifierDamageMine", DataController.GetValue<int>("TotalModifierDamageMine") + newItem.ModifierDamage);
-        DataController.SaveValue("TotalModifierMissChanceMine", DataController.GetValue<int>("TotalModifierMissChanceMine") + newItem.ModifierMissChance);
-        DataController.SaveValue("TotalModifierCriticalChanceMine", DataController.GetValue<int>("TotalModifierCriticalChanceMine") + newItem.ModifierCriticalChance);
-        DataController.SaveValue("TotalModifierBashChanceMine", DataController.GetValue<int>("TotalModifierBashChanceMine") + newItem.ModifierBashChance);
-        DataController.SaveValue("TotalModifierStunChanceMine", DataController.GetValue<int>("TotalModifierStunChanceMine") + newItem.ModifierStunChance);
-        DataController.SaveValue("TotalModifierBlockChanceMine", DataController.GetValue<int>("TotalModifierBlockChanceMine") + newItem.ModifierBlockChance);
-        DataController.SaveValue("TotalModifierMagicMine", DataController.GetValue<int>("TotalModifierMagicMine") + newItem.ModifierMagic);
-        DataController.SaveValue(newItem.name + "Equipped", 2);
-        Equipment oldItem = null;
-
-        Debug.Log("Equipped" + ForEquipmentImgsLoad[(int)newItem.equipSlot] + "Mine" + "         " + DataController.GetValue<string>("Equipped" + ForEquipmentImgsLoad[(int)newItem.equipSlot] + "Mine"));
-
-        if (slotIndex == 7)
+        if (newItem.equipSlot == EquipmentSlot.BothHands) 
         {
-            if (DataController.GetValue<int>("StatsPowerMine") >= 16) 
+            if (DataController.GetValue<int>("StatsPowerMine") < 16) 
             {
-                if (currentEquipment[slotIndex] != null)
-                {
-                    currentEquipment[slotIndex] = null;
-                }
-                if (currentEquipment[4] != null)
-                {
-                    Unequip(4);
-                }
-                if (currentEquipment[5] != null)
-                {
-                    Unequip(5);
-                }
-                currentEquipment[5] = newItem;
-                currentEquipment[slotIndex] = newItem;
-                ListOfIcons[5].image.sprite = newItem.icon;
-                ListOfIcons[5].image.color = Color.white;
-                ListOfImages[5].sprite = Resources.Load<Sprite>(newItem.name);
-                ListOfImages[5].color = Color.white;
+                error = true;
+                return;
             }
         }
-        else 
+
+        if (!error) 
         {
-            if ((slotIndex == 4 || slotIndex == 5))
+            DataController.SaveValue("TotalModifierArmorMine", DataController.GetValue<int>("TotalModifierArmorMine") + newItem.ModifierArmor);
+            DataController.SaveValue("TotalModifierDamageMine", DataController.GetValue<int>("TotalModifierDamageMine") + newItem.ModifierDamage);
+            DataController.SaveValue("TotalModifierMissChanceMine", DataController.GetValue<int>("TotalModifierMissChanceMine") + newItem.ModifierMissChance);
+            DataController.SaveValue("TotalModifierCriticalChanceMine", DataController.GetValue<int>("TotalModifierCriticalChanceMine") + newItem.ModifierCriticalChance);
+            DataController.SaveValue("TotalModifierBashChanceMine", DataController.GetValue<int>("TotalModifierBashChanceMine") + newItem.ModifierBashChance);
+            DataController.SaveValue("TotalModifierStunChanceMine", DataController.GetValue<int>("TotalModifierStunChanceMine") + newItem.ModifierStunChance);
+            DataController.SaveValue("TotalModifierBlockChanceMine", DataController.GetValue<int>("TotalModifierBlockChanceMine") + newItem.ModifierBlockChance);
+            DataController.SaveValue("TotalModifierMagicMine", DataController.GetValue<int>("TotalModifierMagicMine") + newItem.ModifierMagic);
+            DataController.SaveValue(newItem.name + "Equipped", 2);
+            Equipment oldItem = null;
+
+            Debug.Log("Equipped" + ForEquipmentImgsLoad[(int)newItem.equipSlot] + "Mine" + "         " + DataController.GetValue<string>("Equipped" + ForEquipmentImgsLoad[(int)newItem.equipSlot] + "Mine"));
+
+            if (slotIndex == 7)
             {
-                if (currentEquipment[5] != null) 
+                if (DataController.GetValue<int>("StatsPowerMine") >= 16)
                 {
-                    if ((int)currentEquipment[5].equipSlot == 7)
+                    if (currentEquipment[slotIndex] != null)
+                    {
+                        currentEquipment[slotIndex] = null;
+                    }
+                    if (currentEquipment[4] != null)
+                    {
+                        Unequip(4);
+                    }
+                    if (currentEquipment[5] != null)
                     {
                         Unequip(5);
                     }
+                    currentEquipment[5] = newItem;
+                    currentEquipment[slotIndex] = newItem;
+                    ListOfIcons[5].image.sprite = newItem.icon;
+                    ListOfIcons[5].image.color = Color.white;
+                    ListOfImages[5].sprite = Resources.Load<Sprite>(newItem.name);
+                    ListOfImages[5].color = Color.white;
                 }
             }
-
-            if (currentEquipment[slotIndex] != null)
+            else
             {
-                Unequip(slotIndex);
+                if ((slotIndex == 4 || slotIndex == 5))
+                {
+                    if (currentEquipment[5] != null)
+                    {
+                        if ((int)currentEquipment[5].equipSlot == 7)
+                        {
+                            Unequip(5);
+                        }
+                    }
+                }
+
+                if (currentEquipment[slotIndex] != null)
+                {
+                    Unequip(slotIndex);
+                }
+                if (onEquipmentChanged != null)
+                {
+                    onEquipmentChanged.Invoke(newItem, oldItem);
+                }
+
+
+                currentEquipment[slotIndex] = newItem;
+
+                ListOfIcons[slotIndex].image.sprite = newItem.icon;
+                ListOfIcons[slotIndex].image.color = Color.white;
+
+                ListOfImages[slotIndex].sprite = Resources.Load<Sprite>(newItem.name);
+                ListOfImages[slotIndex].color = Color.white;
             }
-            if (onEquipmentChanged != null)
-            {
-                onEquipmentChanged.Invoke(newItem, oldItem);
-            }
 
-
-            currentEquipment[slotIndex] = newItem;
-
-            ListOfIcons[slotIndex].image.sprite = newItem.icon;
-            ListOfIcons[slotIndex].image.color = Color.white;
-
-            ListOfImages[slotIndex].sprite = Resources.Load<Sprite>(newItem.name);
-            ListOfImages[slotIndex].color = Color.white;
+            DataController.SaveValue("Equipped" + ForEquipmentImgsLoad[(int)newItem.equipSlot] + "Mine", newItem.name);
         }
-
-        DataController.SaveValue("Equipped" + ForEquipmentImgsLoad[(int)newItem.equipSlot] + "Mine", newItem.name);
     }
     public void EquipInShop(Equipment newItem)
     {

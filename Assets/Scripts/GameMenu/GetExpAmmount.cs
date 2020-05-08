@@ -1,7 +1,7 @@
 ﻿
-using Text = UnityEngine.UI.Text;
-using MonoBehaviour = UnityEngine.MonoBehaviour;
-using DataController = GameSparksTutorials.DataController;
+using UnityEngine;
+using UnityEngine.UI;
+using GameSparksTutorials;
 
 public class GetExpAmmount : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class GetExpAmmount : MonoBehaviour
         {
             Lvl.text = "60";
             DataController.SaveValue("Exp", 6099);
-        }
+        }else
         if ((DataController.GetValue<int>("Exp") / 100) > DataController.GetValue<int>("Lvl"))
         {
             DataController.SaveValue("SkillPoints", 4 * ((int)(DataController.GetValue<int>("Exp") / 100) - DataController.GetValue<int>("Lvl")) + DataController.GetValue<int>("SkillPoints"));

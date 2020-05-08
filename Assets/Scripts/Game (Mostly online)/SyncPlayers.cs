@@ -13,7 +13,6 @@ public class SyncPlayers : Photon.PunBehaviour, IPunObservable
     {
         if (instance != null)
         {
-            Debug.LogWarning("More than one instance of Sync players Script found!");
             IAmACopy = true;
             return;
         }
@@ -25,7 +24,20 @@ public class SyncPlayers : Photon.PunBehaviour, IPunObservable
 
     void Start() 
     {
-        DataController.GetValue<string>("EquippedMagicMine");
+        if (DataController.GetValue<int>("Rating") >= 1)
+        {
+
+        }
+        else 
+        {
+            DataController.SaveValue("Rating", 1);
+        }
+
+        foreach (string EqSlot in ForEquipmentImgsLoad)
+        {
+            DataController.DeleteValue("Equipped" + EqSlot + "Other");
+        }
+
 
         DataController.SaveValue("blockvar1Left", -1);
         DataController.SaveValue("blockvar2Left", -1);
@@ -46,6 +58,7 @@ public class SyncPlayers : Photon.PunBehaviour, IPunObservable
     {
         if (!started) 
         {
+            delayed = false;
             Debug.Log("Reseting synced data...");
             ResetSyncedDataAndUpdMine();
             CheckedForNotFairStats = false;
@@ -81,13 +94,20 @@ public class SyncPlayers : Photon.PunBehaviour, IPunObservable
 
     Text[] LoadingScreenTexts;
 
+    bool delayed;
+
+    void DelayStopSending() 
+    {
+        syncedOther = true;
+    }
+
     void Update()
     {
-        if (!syncedOther)
+        if (!syncedOther || !syncedMine)
         {
-            if (DataController.GetValue<int>("syncedOther") > 0)
+            if (DataController.GetValue<int>("syncedOther") > 0 && !delayed)
             {
-                syncedOther = true;
+                Invoke("DelayStopSending", 3.0f);
             }
 
             if (DataController.GetValue<int>("syncedMine") > 0)
@@ -101,6 +121,7 @@ public class SyncPlayers : Photon.PunBehaviour, IPunObservable
             {
                 StartSyncing();
             }
+
             CheckIfSynced();
 
             if (syncedMine && syncedOther)
@@ -111,8 +132,6 @@ public class SyncPlayers : Photon.PunBehaviour, IPunObservable
 
                     if (IAmACopy)
                     {
-                        player.magicEquipped = "Curse";
-
                         player.buttons.BtnLeave = GameObject.FindGameObjectsWithTag("BtnLeave")[1];
 
                         player.buttons.BtnsPlace = GameObject.FindGameObjectsWithTag("BtnsPlace")[1];
@@ -150,8 +169,6 @@ public class SyncPlayers : Photon.PunBehaviour, IPunObservable
                     }
                     else
                     {
-                        player.magicEquipped = "Curse";
-
                         player.buttons.BtnLeave = GameObject.FindGameObjectsWithTag("BtnLeave")[0];
 
                         player.buttons.BtnsPlace = GameObject.FindGameObjectsWithTag("BtnsPlace")[0];
@@ -296,6 +313,39 @@ public class SyncPlayers : Photon.PunBehaviour, IPunObservable
     List<string> LocalNamesOther = new List<string> { "AttackOther", "AgilityOther", "PowerOther", "StrengthOther", "EnduranceOther", "SpeedOther", "SleepOther", "RegenOther" };
     List<string> ModifiersList = Equipment.EquipmentModifiers;
 
+    void tryGetStringFromStream(string localName, PhotonStream stream) 
+    {
+        var temp = (string)stream.ReceiveNext();
+
+        if (temp != "" && temp != null) 
+        {
+            try
+            {
+                DataController.SaveValue(localName, temp);
+            }
+            catch
+            {
+            }
+        }
+    }
+
+    void tryGetIntFromStream(string localName, PhotonStream stream)
+    {
+        var temp = (int)stream.ReceiveNext();
+
+        if (temp >= 0 && temp != null)
+        {
+            try
+            {
+                DataController.SaveValue(localName, temp);
+            }
+            catch
+            {
+                Debug.Log("I couldnt read this. Stream length: " + stream.Count);
+            }
+        }
+    }
+
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (PhotonManager.TwoPlayersJoined)
@@ -365,49 +415,49 @@ public class SyncPlayers : Photon.PunBehaviour, IPunObservable
                 }
                 else
                 {
-                    DataController.SaveValue("RatingOther", (int)stream.ReceiveNext());
+                    tryGetIntFromStream("RatingOther", stream); 
 
-                    DataController.SaveValue("WinAnimNumberOther", (int)stream.ReceiveNext());
+                    tryGetIntFromStream("WinAnimNumberOther", stream); 
 
                     if (PhotonNetwork.isNonMasterClientInRoom)
                     {
-                        DataController.SaveValue("blockvar1Left", (int)stream.ReceiveNext());
-                        DataController.SaveValue("blockvar2Left", (int)stream.ReceiveNext());
-                        DataController.SaveValue("blockvar3Left", (int)stream.ReceiveNext());
-                        DataController.SaveValue("blockvar4Left", (int)stream.ReceiveNext());
-                        DataController.SaveValue("blockvar5Left", (int)stream.ReceiveNext());
-                        DataController.SaveValue("blockvar6Left", (int)stream.ReceiveNext());
+                        tryGetIntFromStream("blockvar1Left", stream); 
+                        tryGetIntFromStream("blockvar2Left", stream); 
+                        tryGetIntFromStream("blockvar3Left", stream); 
+                        tryGetIntFromStream("blockvar4Left", stream);
+                        tryGetIntFromStream("blockvar5Left", stream);
+                        tryGetIntFromStream("blockvar6Left", stream);
 
-                        DataController.SaveValue("blockvar1Right", (int)stream.ReceiveNext());
-                        DataController.SaveValue("blockvar2Right", (int)stream.ReceiveNext());
-                        DataController.SaveValue("blockvar3Right", (int)stream.ReceiveNext());
-                        DataController.SaveValue("blockvar4Right", (int)stream.ReceiveNext());
-                        DataController.SaveValue("blockvar5Right", (int)stream.ReceiveNext());
-                        DataController.SaveValue("blockvar6Right", (int)stream.ReceiveNext());
+                        tryGetIntFromStream("blockvar1Right", stream); 
+                        tryGetIntFromStream("blockvar2Right", stream); 
+                        tryGetIntFromStream("blockvar3Right", stream); 
+                        tryGetIntFromStream("blockvar4Right", stream); 
+                        tryGetIntFromStream("blockvar5Right", stream); 
+                        tryGetIntFromStream("blockvar6Right", stream); 
                     }
-                    DataController.SaveValue("EquippedMagicOther", (string)stream.ReceiveNext());
-                    DataController.SaveValue("HairStyle" + "Other", (int)stream.ReceiveNext());
-                    DataController.SaveValue("Beard" + "Other", (int)stream.ReceiveNext());
-                    DataController.SaveValue("BodyColor" + "Other", (int)stream.ReceiveNext());
-                    DataController.SaveValue("HairColor" + "Other", (int)stream.ReceiveNext());
+                    tryGetStringFromStream("EquippedMagicOther", stream); 
+                    tryGetIntFromStream("HairStyle" + "Other", stream); 
+                    tryGetIntFromStream("Beard" + "Other", stream);
+                    tryGetIntFromStream("BodyColor" + "Other", stream); 
+                    tryGetIntFromStream("HairColor" + "Other", stream); 
 
-                    DataController.SaveValue("syncedOther", (int)stream.ReceiveNext());
-                    DataController.SaveValue("enemyName", (string)stream.ReceiveNext());
-                    DataController.SaveValue("LvlOther", (int)stream.ReceiveNext());
+                    tryGetIntFromStream("syncedOther", stream); 
+                    tryGetStringFromStream("enemyName", stream); 
+                    tryGetIntFromStream("LvlOther", stream); 
 
                     foreach (string EqSlot in ForEquipmentImgsLoad)
                     {
-                        DataController.SaveValue("Equipped" + EqSlot + "Other", (string)stream.ReceiveNext());
+                        tryGetStringFromStream("Equipped" + EqSlot + "Other", stream); 
                     }
 
                     foreach (string LocalName in LocalNamesOther)
                     {
-                        DataController.SaveValue("Stats" + LocalName, (int)stream.ReceiveNext());
+                        tryGetIntFromStream("Stats" + LocalName, stream); 
                     }
 
                     foreach (string modifier in ModifiersList)
                     {
-                        DataController.SaveValue("Total" + modifier + "Other", (int)stream.ReceiveNext());
+                        tryGetIntFromStream("Total" + modifier + "Other", stream);
                     }
                 }
             }

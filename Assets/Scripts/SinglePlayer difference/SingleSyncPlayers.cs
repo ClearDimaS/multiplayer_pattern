@@ -13,7 +13,6 @@ public class SingleSyncPlayers : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogWarning("More than one instance of Sync players Script found!");
             IAmACopy = true;
             return;
         }
@@ -67,7 +66,7 @@ public class SingleSyncPlayers : MonoBehaviour
 
                 player.playerInterface = GameObject.FindGameObjectsWithTag("Interface")[1];
 
-                player.playerInfoPanel = GameObject.FindGameObjectsWithTag("PlayerInfo")[1];
+                player.playerInfoPanel = GameObject.FindGameObjectsWithTag("PlayerInfo")[0];
 
                 player.playerLoadingScreen = GameObject.FindGameObjectsWithTag("LoadingScreen")[1];
 
@@ -104,7 +103,7 @@ public class SingleSyncPlayers : MonoBehaviour
 
                 player.playerInterface = GameObject.FindGameObjectsWithTag("Interface")[0];
 
-                player.playerInfoPanel = GameObject.FindGameObjectsWithTag("PlayerInfo")[0];
+                player.playerInfoPanel = GameObject.FindGameObjectsWithTag("PlayerInfo")[1];
 
                 player.playerLoadingScreen = GameObject.FindGameObjectsWithTag("LoadingScreen")[0];
 

@@ -105,6 +105,7 @@ public class GameProcess
         {
             if (PrefabName != "")
             {
+                Debug.Log(PrefabName);
                 dict.TryGetValue(PrefabName, out objOfAnimation);
 
                 GameObject.Instantiate(objOfAnimation, animPosition, Quaternion.identity);
@@ -255,6 +256,7 @@ public class GameProcess
     public float staminaLightMult;
     public float staminaMagic;
     public float blockStam;
+    public float moveStamMult;
 
     public int stamina = 1;
     public int maxStamina = 1;

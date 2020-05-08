@@ -21,7 +21,7 @@ public class DispSpecials : MonoBehaviour
     #endregion
 
 
-    GameObject SpecialsMenu;
+    static GameObject SpecialsMenu;
     public Text Title;
 
     Text[] Texts = new Text[6];
@@ -57,8 +57,14 @@ public class DispSpecials : MonoBehaviour
         SpeedTexts = specials.SpeedTexts;
         SleepTexts = specials.SleepTexts;
         RegenTexts = specials.RegenTexts;
+        GameObject tempMenu;
 
-        SpecialsMenu = GameObject.FindGameObjectWithTag("SpecialsPanel");
+        tempMenu = GameObject.FindGameObjectWithTag("SpecialsPanel");
+        if (tempMenu != null) 
+        {
+            SpecialsMenu = tempMenu;
+        }
+
         AllTexts.Add(AttackTexts);
         AllTexts.Add(AgilityTexts);
         AllTexts.Add(PowerTexts);
@@ -80,7 +86,7 @@ public class DispSpecials : MonoBehaviour
         {
             foreach (string StatName in StatsList)
             {
-                if (Title.text.Contains(StatName))
+                if (Title.name.Contains(StatName))
                 {
                     Texts[5].text = LocalisationSystem.GetLocalisedValue("specials") + " " + LocalisationSystem.GetLocalisedValue(StatName.ToLower()) + " :";
                     Texts[6].text = LocalisationSystem.GetLocalisedValue("specials") + " " + LocalisationSystem.GetLocalisedValue(StatName.ToLower()) + " :";

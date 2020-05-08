@@ -12,7 +12,6 @@ public class Interaction : Photon.PunBehaviour
     {
         if (instance != null)
         {
-            Debug.LogWarning("More than one instance of interaction interface found!");
             return;
         }
         instance = this;
@@ -142,12 +141,12 @@ public class Interaction : Photon.PunBehaviour
 
     public void MoveCloserLeftBtn()
     {
-        isMasterCapable(player1, 1, new List<string> { "SleepLeft", "SwapTurnLeft" }, new List<string> { "MoveCloserLeft", "SwapTurnLeft" });
+        isMasterCapable(player1, player1.moveStamMult, new List<string> { "SleepLeft", "SwapTurnLeft" }, new List<string> { "MoveCloserLeft", "SwapTurnLeft" });
     }
 
     public void MoveFarerLeftBtn()
     {
-        isMasterCapable(player1, 1, new List<string> { "SleepLeft", "SwapTurnLeft" }, new List<string> { "MoveFarerLeft", "SwapTurnLeft" });
+        isMasterCapable(player1, player1.moveStamMult, new List<string> { "SleepLeft", "SwapTurnLeft" }, new List<string> { "MoveFarerLeft", "SwapTurnLeft" });
     }
 
     // RIGHT BUTTONS (Non master client)
@@ -178,12 +177,12 @@ public class Interaction : Photon.PunBehaviour
 
     public void MoveCloserRightBtn()
     {
-        isNonMasterCapable(player1, 1, new List<string> { "SleepRight", "SwapTurnRight" }, new List<string> { "MoveCloserRight", "SwapTurnRight" });
+        isNonMasterCapable(player1, player1.moveStamMult, new List<string> { "SleepRight", "SwapTurnRight" }, new List<string> { "MoveCloserRight", "SwapTurnRight" });
     }
 
     public void MoveFarerRightBtn()
     {
-        isNonMasterCapable(player1, 1, new List<string> { "SleepRight", "SwapTurnRight" }, new List<string> { "MoveFarerRight", "SwapTurnRight" });
+        isNonMasterCapable(player1, player1.moveStamMult, new List<string> { "SleepRight", "SwapTurnRight" }, new List<string> { "MoveFarerRight", "SwapTurnRight" });
     }
 
     public void Leave()
@@ -395,7 +394,7 @@ public class Interaction : Photon.PunBehaviour
             player2.startPos = player2.playerObj.transform.position.x;
             if (PhotonNetwork.isMasterClient)
             {
-                player2.stamina = Points.Minus(player2.stamina, (int)(player2.staminaPerMove * 1));
+                player2.stamina = Points.Minus(player2.stamina, (int)(player2.staminaPerMove * player2.moveStamMult));
                 player2.distToMove = Convert.UnifyMove(moveType, player2);
                 player2.speedToMove = -player2.distToMove / 20.0f;
                 if (ifCloser)
@@ -418,7 +417,7 @@ public class Interaction : Photon.PunBehaviour
             }
             else
             {
-                player1.stamina = Points.Minus(player1.stamina, (int)(player1.staminaPerMove * 1));
+                player1.stamina = Points.Minus(player1.stamina, (int)(player1.staminaPerMove * player1.moveStamMult));
                 player1.distToMove = Convert.UnifyMove(moveType, player1);
                 player1.speedToMove = -player1.distToMove / 20.0f;
                 if (ifCloser)
@@ -450,7 +449,7 @@ public class Interaction : Photon.PunBehaviour
             player2.startPos = player2.playerObj.transform.position.x;
             if (PhotonNetwork.isMasterClient)
             {
-                player1.stamina = Points.Minus(player1.stamina, (int)(player1.staminaPerMove * 1));
+                player1.stamina = Points.Minus(player1.stamina, (int)(player1.staminaPerMove * player1.moveStamMult));
                 player1.distToMove = Convert.UnifyMove(moveType, player1);
                 player1.speedToMove = player1.distToMove / 20.0f;
                 if (ifCloser)
@@ -472,7 +471,7 @@ public class Interaction : Photon.PunBehaviour
             }
             else
             {
-                player2.stamina = Points.Minus(player2.stamina, (int)(player2.staminaPerMove * 1));
+                player2.stamina = Points.Minus(player2.stamina, (int)(player2.staminaPerMove * player2.moveStamMult));
                 player2.distToMove = Convert.UnifyMove(moveType, player2);
                 player2.speedToMove = player2.distToMove / 20.0f;
                 if (ifCloser)

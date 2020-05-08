@@ -22,7 +22,8 @@ public class ItemInfoScript : MonoBehaviour
         if (EquipmentManager.instance.currentEquipment[EquipSlotNum] != null)
         {
             DisplayText = "";
-            DisplayText += EquipmentManager.instance.currentEquipment[EquipSlotNum].name + ": " + DataController.GetValue<string>(EquipmentManager.instance.currentEquipment[EquipSlotNum].name + "equipSlot") + "\n";
+            DisplayText += EquipmentManager.instance.currentEquipment[EquipSlotNum].name + ": " + 
+                LocalisationSystem.GetLocalisedValue(DataController.GetValue<string>(EquipmentManager.instance.currentEquipment[EquipSlotNum].name + "equipSlot")) + "\n";
             //Debug.Log(EquipmentManager.instance.currentEquipment[EquipSlotNum].ModifierBashChance);
             ModifierTemp.Add(EquipmentManager.instance.currentEquipment[EquipSlotNum].ModifierArmor);
             ModifierTemp.Add(EquipmentManager.instance.currentEquipment[EquipSlotNum].ModifierDamage);
@@ -40,10 +41,11 @@ public class ItemInfoScript : MonoBehaviour
                 //Debug.Log(i);
                 if (ModifierTemp[i] > 0)
                 {
-                    DisplayText += ModifierName.Substring(8) + " : + " + ModifierTemp[i] + " %" + "\n";
+                    DisplayText += LocalisationSystem.GetLocalisedValue(ModifierName.Substring(8)) + " : + " + ModifierTemp[i] + " %" + "\n";
                 }
                 i++;
             }
+
             TextItemInfo.text = DisplayText;
         }
         else 
